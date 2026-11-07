@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { observarBadgeLovable } from "../lib/lovable-badge";
 import { AuthProvider } from "@/features/auth/auth-context";
 import { CarrinhoProvider } from "@/features/carrinho/carrinho-context";
 import { Navegacao } from "@/components/mercado/navegacao";
@@ -115,6 +116,8 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => observarBadgeLovable(), []);
 
   return (
     <QueryClientProvider client={queryClient}>

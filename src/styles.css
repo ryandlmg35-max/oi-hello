@@ -99,6 +99,21 @@
   }
 }
 
+/*
+ * Badge "Made with Lovable": esconde o container inteiro — texto do link e
+ * botao de fechar — em todas as paginas. Sem caixa vazia, sem X orfao.
+ */
+#lovable-badge,
+#lovable-badge *,
+[id*="lovable-badge"],
+[class*="lovable-badge"],
+[data-lovable-badge] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
 /* Menu mobile do site original (checkbox + label). */
 .nav-toggle-checkbox {
   display: none;
