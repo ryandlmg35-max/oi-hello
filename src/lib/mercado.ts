@@ -60,7 +60,7 @@ export function enderecoEscrow(moeda: FormaPagamento): string {
 const pixCampo = (id: string, valor: string) =>
   id + valor.length.toFixed(0).padStart(2, "0") + valor;
 
-function crc16Pix(texto: string): number {
+export function crc16Pix(texto: string): number {
   let crc = 0xffff;
   for (let i = 0; i < texto.length; i += 1) {
     crc ^= texto.charCodeAt(i) << 8;
@@ -76,7 +76,9 @@ function crc16Pix(texto: string): number {
  * o valor do pedido em reais embutido (tag 54) e CRC16-CCITT (tag 63).
  */
 export function pixPayloadCopiaCola(valorUsd: number): string {
-  const chavePix = pixCampo("00", "br.gov.bcb.pix") + pixCampo("00", CHAVE_PIX);
+  // Tag 26: 00 = GUI (br.gov.bcb.pix), 01 = chave. Usar 00 na chave (ou
+  // pular a GUI) faz o app do banco recusar o QR como "não é PIX".
+  const chavePix = pixCampo("00", "br.gov.bcb.pix") + pixCampo("01", CHAVE_PIX);
   const partes = [
     pixCampo("00", "01"),
     pixCampo("26", chavePix),
@@ -85,7 +87,7 @@ export function pixPayloadCopiaCola(valorUsd: number): string {
     pixCampo("54", (valorUsd * TAXA_BRL).toFixed(2)),
     pixCampo("58", "BR"),
     pixCampo("59", "BLACK MARKET"),
-    pixCampo("60", "SAO PAULO"),
+    pixCampo("60", "Sao Paulo"),
     pixCampo("62", pixCampo("05", "***")),
   ];
   const semCrc = `${partes.join("")}6304`;
