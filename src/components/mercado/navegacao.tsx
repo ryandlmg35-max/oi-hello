@@ -55,7 +55,7 @@ export function Navegacao() {
           </li>
           <li>
             <Link to="/escrow-overview.php" activeProps={{ className: "active" }}>
-              Escrow
+              Segurança
             </Link>
           </li>
           <li>

@@ -47,7 +47,7 @@ export function SliderBlackFriday() {
                 src="/pic/bf_escrow_wide.jpg"
                 width={1648}
                 height={800}
-                alt="100% escrow — 10 dias de proteção ao comprador"
+                alt="100% custódia — 10 dias de proteção ao comprador"
                 className="bf-img"
                 loading="lazy"
                 decoding="async"

@@ -7,7 +7,10 @@ export const Route = createFileRoute("/login.php")({
   head: () => ({
     meta: [
       { title: "Entrar | Black Market 2026" },
-      { name: "description", content: "Acesse sua conta para finalizar pedidos com escrow." },
+      {
+        name: "description",
+        content: "Acesse sua conta para finalizar pedidos com custódia do site.",
+      },
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({

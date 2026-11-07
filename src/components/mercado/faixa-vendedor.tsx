@@ -18,9 +18,9 @@ export function FaixaVendedor({ vendedor, reviewsHref }: Props) {
       <div className="features-grid">
         <div className="feature-item">
           <Link to="/escrow-overview.php" className="headerlink">
-            <img src="/pic/becomevendor.png" className="icon" alt="Escrow" />
-            <h3 className="feature-title">Proteção Escrow</h3>
-            <p className="feature-description">Sistema de pagamento 100% seguro*</p>
+            <img src="/pic/becomevendor.png" className="icon" alt="Custódia" />
+            <h3 className="feature-title">Compra Protegida</h3>
+            <p className="feature-description">Custódia do site + reembolso automático*</p>
           </Link>
         </div>
 

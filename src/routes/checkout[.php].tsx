@@ -27,7 +27,7 @@ export const Route = createFileRoute("/checkout.php")({
   head: () => ({
     meta: [
       { title: "Checkout | Black Market 2026" },
-      { name: "description", content: "Checkout protegido por escrow MultiSig." },
+      { name: "description", content: "Checkout com custódia MultiSig do site." },
     ],
   }),
   component: PaginaCheckout,
@@ -74,7 +74,7 @@ function PaginaCheckout() {
           <h1 className="checkout-heading">Checkout</h1>
           <img src="/pic/logo.png" width={180} alt="Checkout" />
           <p className="info-text">
-            Entre na sua conta para gerar o endereço de escrow e finalizar o pedido.
+            Entre na sua conta para gerar o endereço de custódia e finalizar o pedido.
           </p>
           <div className="cart-actions">
             <Link to="/login.php" search={{ redirect: "/checkout.php" }} className="btn-rating">
@@ -104,7 +104,7 @@ function PaginaCheckout() {
           </div>
 
           <div className="wallet-box">
-            <div className="key-label">Endereço escrow ({form.pagamento})</div>
+            <div className="key-label">Endereço de custódia ({form.pagamento})</div>
             <div className="key-value">{endereco}</div>
             <p className="info-text">
               Envie o valor exato para o endereço. O pedido confirma automaticamente após 2
@@ -148,7 +148,7 @@ function PaginaCheckout() {
           </div>
 
           <p className="disclaimer">
-            Clone de estudo: endereço de escrow e valores são simulados, nenhuma transação real é
+            Clone de estudo: endereço de custódia e valores são simulados, nenhuma transação real é
             executada.
           </p>
         </div>
@@ -218,7 +218,7 @@ function PaginaCheckout() {
 
     setPedido({ id: resultado.id, chave: resultado.chave ?? "" });
     limpar();
-    toast.success("Pedido criado — endereço de escrow gerado");
+    toast.success("Pedido criado — endereço de custódia gerado");
   }
 
   return (
@@ -382,7 +382,7 @@ function PaginaCheckout() {
           <div className="amount-usd">{formatarBrl(subtotal)}</div>
           <div className="amount-crypto">{formatarCrypto(subtotal, form.pagamento)}</div>
           <span className="escrow-badge">
-            <img src="/pic/verified.png" alt="verificado" /> Escrow MultiSig — 10 dias
+            <img src="/pic/verified.png" alt="verificado" /> Custódia MultiSig — 10 dias
           </span>
         </div>
 
@@ -390,7 +390,7 @@ function PaginaCheckout() {
 
         <div className="form-actions">
           <button type="submit" className="btn-buy2" disabled={enviando}>
-            {enviando ? "PROCESSANDO..." : "FINALIZAR PEDIDO (ESCROW)"}
+            {enviando ? "PROCESSANDO..." : "FINALIZAR PEDIDO"}
           </button>
           <Link to="/card.php" className="btn-outline">
             Voltar ao carrinho

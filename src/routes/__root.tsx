@@ -71,13 +71,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Medical / Drugs direto do nosso estoque. Escrow MultiSig, 10 dias de proteção ao comprador, BTC e ETH.",
+          "Medical / Drugs direto do nosso estoque. Custódia MultiSig, 10 dias de proteção ao comprador, BTC e ETH.",
       },
       { property: "og:title", content: "Black Market 2026 | Loja Oficial" },
       {
         property: "og:description",
         content:
-          "Medical / Drugs direto do nosso estoque. Escrow MultiSig, 10 dias de proteção ao comprador.",
+          "Medical / Drugs direto do nosso estoque. Custódia MultiSig, 10 dias de proteção ao comprador.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -8,7 +8,7 @@ export const Route = createFileRoute("/card.php")({
       { title: "Carrinho | Black Market 2026" },
       {
         name: "description",
-        content: "Seu carrinho — revise os itens e siga para o checkout protegido por escrow.",
+        content: "Seu carrinho — revise os itens e siga para o checkout com custódia do site.",
       },
     ],
   }),
@@ -38,7 +38,8 @@ function PaginaCarrinho() {
       <div className="checkout-card">
         <h1 className="checkout-heading">Seu carrinho</h1>
         <p className="info-text">
-          {totalItens} {totalItens === 1 ? "item" : "itens"} — protegido por escrow até a entrega.
+          {totalItens} {totalItens === 1 ? "item" : "itens"} — protegido pela custódia até a
+          entrega.
         </p>
 
         {itens.map((item) => (
@@ -49,7 +50,7 @@ function PaginaCarrinho() {
               <div className="cart-name">{item.nome}</div>
               <div className="cart-meta">
                 <span className="altext">
-                  <img src="/pic/verified.png" alt="verificado" /> Escrow
+                  <img src="/pic/verified.png" alt="verificado" /> Custódia do site
                 </span>
                 <span className="cart-country">{item.variante}</span>
               </div>
@@ -86,7 +87,7 @@ function PaginaCarrinho() {
           <div className="amount-usd">{formatarBrl(subtotal)}</div>
           <div className="amount-crypto">{formatarCrypto(subtotal, "BTC")}</div>
           <span className="escrow-badge">
-            <img src="/pic/verified.png" alt="verificado" /> Protegido por escrow
+            <img src="/pic/verified.png" alt="verificado" /> Protegido pela custódia do site
           </span>
         </div>
 
@@ -100,8 +101,8 @@ function PaginaCarrinho() {
         </div>
 
         <p className="cart-hint">
-          O valor fica travado no escrow MultiSig e é liberado só depois que você confirma a
-          entrega.
+          O valor fica travado na custódia MultiSig do site e é liberado só depois que você confirma
+          a entrega.
         </p>
       </div>
     </main>

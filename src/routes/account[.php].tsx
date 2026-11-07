@@ -50,7 +50,7 @@ function PaginaConta() {
         <div className="checkout-card cart-empty">
           <h1 className="checkout-heading">Meus Pedidos</h1>
           <img src="/pic/logo.png" width={180} alt="Conta" />
-          <p className="info-text">Entre para ver seus pedidos e o status do escrow.</p>
+          <p className="info-text">Entre para ver seus pedidos e o status da custódia.</p>
           <Link to="/login.php" search={{ redirect: "/account.php" }} className="btn-rating">
             ENTRAR
           </Link>

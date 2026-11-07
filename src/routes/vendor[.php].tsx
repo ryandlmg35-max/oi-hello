@@ -18,7 +18,7 @@ export const Route = createFileRoute("/vendor.php")({
       { title: "Coleção | Black Market 2026" },
       {
         name: "description",
-        content: "Produtos direto do nosso estoque — envio próprio, com escrow MultiSig.",
+        content: "Produtos direto do nosso estoque — envio próprio, com custódia MultiSig.",
       },
     ],
   }),

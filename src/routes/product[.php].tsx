@@ -28,7 +28,7 @@ export const Route = createFileRoute("/product.php")({
   head: () => ({
     meta: [
       { title: "Produto | Black Market 2026" },
-      { name: "description", content: "Anúncio com escrow MultiSig e entrega expressa." },
+      { name: "description", content: "Anúncio com custódia MultiSig e entrega expressa." },
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({

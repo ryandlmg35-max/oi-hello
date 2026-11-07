@@ -6,7 +6,7 @@ export function Rodape() {
       <nav className="footer-nav">
         <ul>
           <li>
-            <Link to="/escrow-overview.php">Escrow</Link>
+            <Link to="/escrow-overview.php">Segurança</Link>
           </li>
           <li>
             <Link to="/account.php">Meus Pedidos</Link>
