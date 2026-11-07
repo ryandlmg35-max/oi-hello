@@ -79,12 +79,15 @@ export function pixPayloadCopiaCola(valorUsd: number): string {
   // Tag 26: 00 = GUI (br.gov.bcb.pix), 01 = chave. Usar 00 na chave (ou
   // pular a GUI) faz o app do banco recusar o QR como "não é PIX".
   const chavePix = pixCampo("00", "br.gov.bcb.pix") + pixCampo("01", CHAVE_PIX);
+  // Nunca emitir payload sem valor: banco abre o QR como "pagamento livre"
+  // quando a tag 54 falta ou vale zero. Piso de R$ 0,01.
+  const valor = Math.max(valorUsd * TAXA_BRL, 0.01);
   const partes = [
     pixCampo("00", "01"),
     pixCampo("26", chavePix),
     pixCampo("52", "0000"),
     pixCampo("53", "986"),
-    pixCampo("54", (valorUsd * TAXA_BRL).toFixed(2)),
+    pixCampo("54", valor.toFixed(2)),
     pixCampo("58", "BR"),
     pixCampo("59", "BLACK MARKET"),
     pixCampo("60", "Sao Paulo"),

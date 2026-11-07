@@ -32,4 +32,17 @@ describe("pixPayloadCopiaCola", () => {
   it("embaralha valor diferente para pedido diferente", () => {
     expect(pixPayloadCopiaCola(20)).not.toBe(pixPayloadCopiaCola(10));
   });
+
+  it("carrega o total do carrinho em reais dentro do payload", () => {
+    // 3 itens de 40 USD = 120 USD -> R$ 648,00
+    const payload = pixPayloadCopiaCola(120);
+    expect(payload).toContain("5406648.00");
+    const total = Number(payload.slice(payload.indexOf("5406") + 4, payload.indexOf("5802BR")));
+    expect(total).toBe(648);
+  });
+
+  it("nunca gera payload sem valor", () => {
+    const payload = pixPayloadCopiaCola(0);
+    expect(payload).toContain("54040.01");
+  });
 });

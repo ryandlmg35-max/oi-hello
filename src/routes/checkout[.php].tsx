@@ -53,6 +53,8 @@ function PaginaCheckout() {
     id: string;
     chave: string;
     modo?: "banco" | "local";
+    total: number;
+    totalItens: number;
   } | null>(null);
 
   const [form, setForm] = useState({
@@ -105,7 +107,9 @@ function PaginaCheckout() {
   if (pedido) {
     const ePix = form.pagamento === "PIX";
     const endereco = enderecoEscrow(form.pagamento);
-    const codigoPix = ePix ? pixPayloadCopiaCola(subtotal) : "";
+    // O total vem do pedido criado (o carrinho ja foi limpo depois do envio).
+    const totalPedido = pedido.total;
+    const codigoPix = ePix ? pixPayloadCopiaCola(totalPedido) : "";
     return (
       <main className="checkout-page">
         <div className="checkout-card">
@@ -124,8 +128,8 @@ function PaginaCheckout() {
             <div className="status-label">Aguardando pagamento</div>
             <div className="status-value">
               {ePix
-                ? formatarBrl(subtotal)
-                : `${formatarBrl(subtotal)} — ${formatarCrypto(subtotal, form.pagamento as MoedaPagamento)}`}
+                ? formatarBrl(totalPedido)
+                : `${formatarBrl(totalPedido)} — ${formatarCrypto(totalPedido, form.pagamento as MoedaPagamento)}`}
             </div>
           </div>
 
@@ -141,9 +145,11 @@ function PaginaCheckout() {
                   level="M"
                 />
                 <div className="key-value" style={{ marginTop: "10px" }}>
-                  {formatarBrl(subtotal)}
+                  {formatarBrl(totalPedido)}
                 </div>
               </div>
+              <div className="key-label">Valor exato a pagar</div>
+              <div className="key-value">{formatarBrl(totalPedido)}</div>
               <div className="key-label">Copia e cola (código EMV)</div>
               <div className="key-value" style={{ wordBreak: "break-all" }}>
                 {codigoPix}
@@ -161,7 +167,9 @@ function PaginaCheckout() {
                 </button>
               </div>
               <p className="info-text">
-                Pague o valor exato. Depois de pagar, mande o comprovante no suporte{" "}
+                O app do banco abre com o valor exato já preenchido —{" "}
+                <strong>{formatarBrl(totalPedido)}</strong>. Não altere o valor: pagamento fora do
+                total deixa o pedido pendente. Depois de pagar, mande o comprovante no suporte{" "}
                 <a href="https://t.me/yuminnk" target="_blank" rel="noreferrer">
                   t.me/yuminnk
                 </a>{" "}
@@ -208,7 +216,7 @@ function PaginaCheckout() {
                   <div className="summarydescription">Itens</div>
                 </td>
                 <td>
-                  <div className="summarydescription2">{itens.length}</div>
+                  <div className="summarydescription2">{pedido.totalItens}</div>
                 </td>
               </tr>
             </tbody>
@@ -266,6 +274,9 @@ function PaginaCheckout() {
     }
 
     setEnviando(true);
+    // Total travado ANTES de limpar o carrinho: e ele que vai no QR PIX.
+    const total = Math.round(itens.reduce((acc, i) => acc + i.preco * i.quantidade, 0) * 100) / 100;
+    const totalItens = itens.reduce((acc, i) => acc + i.quantidade, 0);
     const resultado = await criarPedido({
       usuarioId: user.id,
       nome: validado.data.nome,
@@ -292,7 +303,13 @@ function PaginaCheckout() {
       return;
     }
 
-    setPedido({ id: resultado.id, chave: resultado.chave ?? "", modo: resultado.modo ?? "banco" });
+    setPedido({
+      id: resultado.id,
+      chave: resultado.chave ?? "",
+      modo: resultado.modo ?? "banco",
+      total,
+      totalItens,
+    });
     limpar();
     toast.success(
       form.pagamento === "PIX"
