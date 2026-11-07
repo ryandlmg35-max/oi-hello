@@ -7,6 +7,23 @@
 export const TAXA_BRL = 5.4;
 export const TAXA_BTC_ESTIMADA = 50000;
 export const TAXA_ETH_ESTIMADA = 2500;
+export const TAXA_SOL_ESTIMADA = 150;
+
+/** Criptos aceitas no pagamento. */
+export type MoedaPagamento = "BTC" | "ETH" | "SOL";
+
+/** Carteiras fixationas de recebimento (nao derivadas, nao trocam por pedido). */
+export const CARTEIRAS: Record<MoedaPagamento, string> = {
+  BTC: "bc1qh0m2g0te34h5v2qdsw89vndym9h4e8u8aqfevf",
+  ETH: "0xD3F04Fe3a27C67C0ce23e8E1d026B9A4c063C564",
+  SOL: "HPf2DFvk4xJWKx9mA3grsc1dmboQju8PdPHYy46HTsc",
+};
+
+export const ROTULO_MOEDA: Record<MoedaPagamento, string> = {
+  BTC: "Bitcoin (BTC)",
+  ETH: "Ethereum (ETH)",
+  SOL: "Solana (SOL)",
+};
 
 const formatoBrl = new Intl.NumberFormat("pt-BR", {
   style: "currency",
@@ -17,20 +34,16 @@ export function formatarBrl(valorUsd: number): string {
   return formatoBrl.format(valorUsd * TAXA_BRL);
 }
 
-export function formatarCrypto(valorUsd: number, moeda: "BTC" | "ETH"): string {
-  const taxa = moeda === "BTC" ? TAXA_BTC_ESTIMADA : TAXA_ETH_ESTIMADA;
+export function formatarCrypto(valorUsd: number, moeda: MoedaPagamento): string {
+  const taxa =
+    moeda === "BTC" ? TAXA_BTC_ESTIMADA : moeda === "ETH" ? TAXA_ETH_ESTIMADA : TAXA_SOL_ESTIMADA;
   const quantidade = valorUsd / taxa;
   return `≈ ${quantidade.toFixed(6)} ${moeda}`;
 }
 
-/** Endereco de escrow ficticio derivado do id do pedido (demo). */
-export function enderecoEscrow(orderId: string, moeda: string): string {
-  const prefixo = moeda === "ETH" ? "0x" : "bc1";
-  let hash = 0;
-  for (let i = 0; i < orderId.length; i += 1)
-    hash = (hash * 31 + orderId.charCodeAt(i)) % 0xffffffff;
-  const corpo = Math.abs(hash).toString(16).padStart(8, "0").repeat(6).slice(0, 42);
-  return `${prefixo}${corpo}`;
+/** Carteira de custodia da moeda: endereco do proprio site, fixo. */
+export function enderecoEscrow(moeda: MoedaPagamento): string {
+  return CARTEIRAS[moeda] ?? CARTEIRAS.BTC;
 }
 
 export const STATUS_PEDIDO: Record<string, { rotulo: string; classe: string }> = {

@@ -5,7 +5,13 @@ import { toast } from "sonner";
 import { useAuth } from "@/features/auth/auth-context";
 import { useCarrinho } from "@/features/carrinho/carrinho-context";
 import { criarPedido } from "@/features/pedidos/pedidos";
-import { enderecoEscrow, formatarBrl, formatarCrypto } from "@/lib/mercado";
+import {
+  enderecoEscrow,
+  formatarBrl,
+  formatarCrypto,
+  ROTULO_MOEDA,
+  type MoedaPagamento,
+} from "@/lib/mercado";
 
 const esquema = z.object({
   nome: z.string().min(3, "Informe seu nome completo"),
@@ -17,7 +23,7 @@ const esquema = z.object({
   cidade: z.string().min(2, "Informe a cidade"),
   pais: z.string().min(2, "Informe o pais"),
   cep: z.string().min(4, "CEP invalido"),
-  pagamento: z.enum(["BTC", "ETH"]),
+  pagamento: z.enum(["BTC", "ETH", "SOL"]),
   observacoes: z.string().optional(),
 });
 
@@ -52,7 +58,7 @@ function PaginaCheckout() {
     cidade: "",
     pais: "Brasil",
     cep: "",
-    pagamento: "BTC" as "BTC" | "ETH",
+    pagamento: "BTC" as MoedaPagamento,
     observacoes: "",
   });
 
@@ -90,7 +96,7 @@ function PaginaCheckout() {
   }
 
   if (pedido) {
-    const endereco = enderecoEscrow(pedido.id, form.pagamento);
+    const endereco = enderecoEscrow(form.pagamento);
     return (
       <main className="checkout-page">
         <div className="checkout-card">
@@ -339,10 +345,11 @@ function PaginaCheckout() {
             id="pagamento"
             name="pagamento"
             value={form.pagamento}
-            onChange={(e) => setForm({ ...form, pagamento: e.target.value as "BTC" | "ETH" })}
+            onChange={(e) => setForm({ ...form, pagamento: e.target.value as MoedaPagamento })}
           >
-            <option value="BTC">Bitcoin (BTC)</option>
-            <option value="ETH">Ethereum (ETH)</option>
+            <option value="BTC">{ROTULO_MOEDA.BTC}</option>
+            <option value="ETH">{ROTULO_MOEDA.ETH}</option>
+            <option value="SOL">{ROTULO_MOEDA.SOL}</option>
           </select>
         </div>
 

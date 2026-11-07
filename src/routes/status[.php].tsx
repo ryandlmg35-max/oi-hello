@@ -109,7 +109,7 @@ function PaginaStatus() {
                 {formatarBrl(Number(pedido.valor_total))} ·{" "}
                 {formatarCrypto(
                   Number(pedido.valor_total),
-                  (pedido.moeda as "BTC" | "ETH") ?? "BTC",
+                  (pedido.moeda as "BTC" | "ETH" | "SOL") ?? "BTC",
                 )}
               </div>
             </div>

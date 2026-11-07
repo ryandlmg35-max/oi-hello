@@ -9,7 +9,7 @@ export const Route = createFileRoute("/login.php")({
       { title: "Entrar | Black Market 2026" },
       {
         name: "description",
-        content: "Acesse sua conta para finalizar pedidos com custódia do site.",
+        content: "Acesse sua conta para finalizar pedidos com custódia do site (BTC, ETH ou SOL).",
       },
     ],
   }),
