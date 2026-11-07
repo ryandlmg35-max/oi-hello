@@ -151,7 +151,7 @@ on conflict (user_id, role) do nothing;`}
               ENTRAR
             </Link>
             <Link to="/" className="btn-outline">
-              Voltar aos vendedores
+              Voltar
             </Link>
           </div>
         </div>
@@ -179,7 +179,6 @@ on conflict (user_id, role) do nothing;`}
         {produtos.data?.map((linha) => (
           <div className="cart-item" key={linha.id} style={{ display: "block" }}>
             <div className="cart-info">
-              <div className="cart-vendor">{linha.vendedor ?? ""}</div>
               <div className="cart-name">{linha.nome}</div>
               <div className="cart-meta">
                 <span className="cart-country">

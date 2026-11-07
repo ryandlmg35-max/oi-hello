@@ -26,7 +26,7 @@ export function Navegacao() {
         <ul>
           <li>
             <Link to="/" activeProps={{ className: "active" }}>
-              Vendedores
+              Início
             </Link>
           </li>
           <li>
@@ -35,7 +35,7 @@ export function Navegacao() {
               search={{ cat: "drugs" }}
               activeProps={{ className: "specialactive" }}
             >
-              Medical / Drugs
+              Produtos
             </Link>
           </li>
           <li className="dropdown">

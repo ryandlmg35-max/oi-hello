@@ -72,7 +72,7 @@ function PaginaLogin() {
 
         {modo === "cadastro" ? (
           <div className="form-group">
-            <label htmlFor="nome">Nome da loja / usuário</label>
+            <label htmlFor="nome">Nome de usuário</label>
             <input id="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
           </div>
         ) : null}

@@ -145,7 +145,6 @@ function PaginaStatus() {
                 {pedido.pedido_itens.map((item) => (
                   <tr key={`${item.produto_id}-${item.variante_id ?? item.produto_nome}`}>
                     <td>
-                      <div className="vendor-label">{item.vendedor ?? ""}</div>
                       <div className="summarydescription">{item.produto_nome ?? ""}</div>
                       <div className="summarydescription2">
                         {item.variante ?? ""} · Qtd {item.quantidade}

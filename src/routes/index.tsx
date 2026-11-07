@@ -7,11 +7,11 @@ import { PromoEscrow } from "@/components/mercado/promo-escrow";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Black Market 2026 | Mercado com Escrow" },
+      { title: "Black Market 2026 | Loja Oficial" },
       {
         name: "description",
         content:
-          "Mirror da secao Medical / Drugs: vendedores verificados, escrow MultiSig e 10 dias de proteção ao comprador.",
+          "Mirror da seção Medical / Drugs: produtos direto do nosso estoque, escrow MultiSig e 10 dias de proteção ao comprador.",
       },
     ],
   }),

@@ -9,6 +9,21 @@ export type Comentario = {
   compra: string;
 };
 
+/**
+ * Linhas de contato do mirror original nunca chegam ao cliente: quem envia e
+ * o proprio site.
+ */
+function limparContato(texto: string): string {
+  return texto
+    .split("\n")
+    .filter((l) => {
+      const t = l.trim();
+      if (!t) return true;
+      return !(/^(Contact|Contato):/i.test(t) || /@x-mail\.pro/i.test(t));
+    })
+    .join("\n");
+}
+
 export type Variante = {
   id: string;
   produtoId: string;
@@ -170,11 +185,11 @@ export const carregarCatalogo = createServerFn({ method: "GET" }).handler(
         vendorSlug: linha.vendedor_slug ?? "",
         produto: linha.numero_produto ?? linha.id,
         titulo: linha.nome,
-        descricao: linha.descricao ?? "",
+        descricao: limparContato(linha.descricao ?? ""),
         galeria: linha.galeria ?? [],
         imgPrincipal: linha.imagem_url ?? "",
         categoria: linha.categoria ?? CATEGORIA,
-        envio: linha.envio ?? "Envio mundial",
+        envio: linha.envio ? limparContato(linha.envio).replace(/\n+/g, " · ") : "Envio mundial",
         vendas: linha.vendas ?? 0,
         comentarios: (linha.comentarios ?? []) as Comentario[],
         paises: [],
@@ -185,7 +200,7 @@ export const carregarCatalogo = createServerFn({ method: "GET" }).handler(
         id: linha.id,
         slug: linha.slug,
         nome: linha.nome,
-        nivel: linha.nivel,
+        nivel: "",
         envio: linha.envio,
         capa: linha.capa ?? "",
         logo: linha.logo ?? "",
@@ -200,7 +215,9 @@ export const carregarCatalogo = createServerFn({ method: "GET" }).handler(
       const estatico = await import("@/data/mercado/catalogo");
       const produtos: Produto[] = estatico.PRODUTOS.map((p) => ({
         ...p,
+        descricao: limparContato(p.descricao),
         produto: p.produto,
+        envio: limparContato(p.envio).replace(/\n+/g, " · "),
         variantes: p.variantes.map((v, i) => ({
           id: v.id,
           produtoId: p.id,
@@ -216,7 +233,7 @@ export const carregarCatalogo = createServerFn({ method: "GET" }).handler(
         id: v.slug,
         slug: v.slug,
         nome: v.nome,
-        nivel: v.nivel,
+        nivel: "",
         envio: v.envio,
         capa: v.capa,
         logo: v.logo,

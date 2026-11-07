@@ -31,7 +31,7 @@ export function SliderBlackFriday() {
                 src="/pic/bf_shipping_wide.jpg"
                 width={1648}
                 height={800}
-                alt="Black Friday — envio grátis em vendedores selecionados"
+                alt="Black Friday — envio grátis em ofertas selecionadas"
                 className="bf-img"
                 loading="lazy"
                 decoding="async"

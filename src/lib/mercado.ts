@@ -37,13 +37,31 @@ export const STATUS_PEDIDO: Record<string, { rotulo: string; classe: string }> =
   pendente: { rotulo: "Aguardando pagamento", classe: "awaiting" },
   enviado: { rotulo: "Enviado", classe: "confirmed" },
   pago: { rotulo: "Pago", classe: "confirmed" },
-  liberado: { rotulo: "Liberado ao vendedor", classe: "confirmed" },
+  liberado: { rotulo: "Liberado", classe: "confirmed" },
   cancelado: { rotulo: "Cancelado", classe: "canceled" },
   disputa: { rotulo: "Em disputa", classe: "underpaid" },
 };
 
 export function statusDoPedido(status: string) {
   return STATUS_PEDIDO[status] ?? { rotulo: status, classe: "awaiting" };
+}
+
+/**
+ * Remove linhas de contato de terceiros ( emails do mirror original ) e
+ * retorna o envio pronto para exibicao, pq aqui quem envia e o proprio site.
+ */
+export function envioLimpo(texto: string): string {
+  if (!texto) return "Envio discreto, com rastreio";
+  const linhas = texto
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => {
+      if (!l) return false;
+      if (/^(Contact|Contato):/i.test(l)) return false;
+      if (/@x-mail\.pro/i.test(l)) return false;
+      return true;
+    });
+  return linhas.join(" · ") || "Envio discreto, com rastreio";
 }
 
 export function formatarDataHora(iso: string | null | undefined): string {

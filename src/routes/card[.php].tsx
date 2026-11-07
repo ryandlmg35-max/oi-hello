@@ -46,7 +46,6 @@ function PaginaCarrinho() {
             <img src={`/${item.img}`} className="picture" alt={item.nome} />
 
             <div className="cart-info">
-              <div className="cart-vendor">{item.vendor}</div>
               <div className="cart-name">{item.nome}</div>
               <div className="cart-meta">
                 <span className="altext">

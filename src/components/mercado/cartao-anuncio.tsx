@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { envioLimpo } from "@/lib/mercado";
 import type { Produto, Variante } from "@/data/mercado/servidor";
 
 type Props = {
@@ -39,7 +40,7 @@ export function CartaoAnuncio({ produto, variante }: Props) {
             <center>
               {variante.precoTexto}
               <br />
-              {produto.envio}
+              {envioLimpo(produto.envio)}
             </center>
           </div>
         </p>

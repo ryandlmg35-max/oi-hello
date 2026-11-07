@@ -15,8 +15,11 @@ const slug = (valor: string) =>
 export const Route = createFileRoute("/vendor.php")({
   head: () => ({
     meta: [
-      { title: "Vendedor | Black Market 2026" },
-      { name: "description", content: "Loja do vendedor — anúncios com escrow MultiSig." },
+      { title: "Coleção | Black Market 2026" },
+      {
+        name: "description",
+        content: "Produtos direto do nosso estoque — envio próprio, com escrow MultiSig.",
+      },
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({

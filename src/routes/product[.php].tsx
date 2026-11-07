@@ -13,6 +13,17 @@ const slug = (valor: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
+/** Linhas de contato de terceiros nao sao exibidas: quem envia e o proprio site. */
+const descricaoLimpa = (texto: string) =>
+  texto
+    .split("\n")
+    .filter((l) => {
+      const t = l.trim();
+      if (!t) return true;
+      return !(/^(Contact|Contato):/i.test(t) || /@x-mail\.pro/i.test(t));
+    })
+    .join("\n");
+
 export const Route = createFileRoute("/product.php")({
   head: () => ({
     meta: [
@@ -103,12 +114,14 @@ function PaginaProduto() {
 
         {produto.descricao ? (
           <p className="product-description">
-            {produto.descricao.split("\n").map((linha, i) => (
-              <span key={i}>
-                {linha}
-                <br />
-              </span>
-            ))}
+            {descricaoLimpa(produto.descricao)
+              .split("\n")
+              .map((linha, i) => (
+                <span key={i}>
+                  {linha}
+                  <br />
+                </span>
+              ))}
           </p>
         ) : null}
 

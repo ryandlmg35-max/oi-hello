@@ -37,9 +37,8 @@ function PaginaEscrow() {
           </h2>
           <p style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7, textAlign: "left" }}>
             <strong style={{ color: "rgba(255,255,255,0.85)" }}>Negociação segura:</strong> o escrow
-            funciona como um terceiro neutro que segura o Bitcoin até o comprador conferir o
-            produto. Isso evita fraude: o vendedor recebe o pagamento e o comprador recebe o
-            produto.
+            funciona como um terceiro neutro que segura o Bitcoin até você conferir o produto. Isso
+            evita fraude: nós recebemos o pagamento só depois que você confirma o produto.
           </p>
 
           <p style={{ color: "rgba(255,255,255,0.75)", marginTop: "16px", textAlign: "left" }}>
@@ -63,12 +62,12 @@ function PaginaEscrow() {
                 borderBottom: "1px solid rgba(255,255,255,0.04)",
               }}
             >
-              → <strong style={{ color: "rgba(255,255,255,0.8)" }}>2. Entrega:</strong> o vendedor
-              envia o produto.
+              → <strong style={{ color: "rgba(255,255,255,0.8)" }}>2. Envio:</strong> nós postamos o
+              produto.
             </li>
             <li style={{ padding: "6px 0", color: "rgba(255,255,255,0.6)" }}>
               → <strong style={{ color: "rgba(255,255,255,0.8)" }}>3. Liberação:</strong> recebido e
-              conferido, o valor é liberado ao vendedor.
+              conferido por você, o valor é liberado.
             </li>
           </ul>
         </div>
@@ -122,18 +121,14 @@ function PaginaEscrow() {
                 borderBottom: "1px solid rgba(255,255,255,0.04)",
               }}
             >
-              <span style={{ color: "#e91e63", fontWeight: 600 }}>
-                Somente vendedores verificados:
-              </span>{" "}
-              aplicamos uma política de caução (&apos;Vendor Bond&apos;). Só vende aqui quem pagou a
-              caução de segurança.
+              <span style={{ color: "#e91e63", fontWeight: 600 }}>Estoque próprio:</span> todos os
+              produtos são do nosso próprio estoque.
             </li>
           </ul>
 
           <p style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7, marginTop: "14px" }}>
-            Todas as transações são cobertas até R$ 270.000,00. Cada vendedor mantém uma caução
-            obrigatória de R$ 27.000,00. Com 10 vendedores ativos, nosso fundo de garantia totaliza
-            R$ 270.000,00 (R$ 27.000,00 × 10).
+            Todas as transações são cobertas até R$ 270.000,00. Todo o estoque é respaldado pelo
+            nosso fundo de garantia próprio de R$ 270.000,00.
           </p>
         </div>
       </section>
@@ -157,9 +152,9 @@ function PaginaEscrow() {
             <li>O sistema gera um endereço de Escrow único, ligado ao ID do seu pedido.</li>
             <li>Deposite o valor exato na carteira informada.</li>
             <li>O pedido confirma automaticamente após 2 confirmações de rede.</li>
-            <li>O vendedor envia o produto em até 10 dias.</li>
+            <li>Postamos o produto em até 10 dias.</li>
             <li>Receba o produto e confirme a entrega.</li>
-            <li>O valor é liberado ao vendedor.</li>
+            <li>O valor é liberado.</li>
             <li>Deixe sua avaliação do produto.</li>
           </ol>
           <p style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
@@ -190,7 +185,7 @@ function PaginaEscrow() {
             </li>
             <li>
               <strong style={{ color: "rgba(255,255,255,0.85)" }}>Disputa automática:</strong> se o
-              vendedor marcar como &quot;Enviado&quot; e o produto não chegar, uma disputa abre.
+              pedido for marcado como &quot;Enviado&quot; e não chegar, uma disputa abre.
             </li>
             <li>
               <strong style={{ color: "rgba(255,255,255,0.85)" }}>Resolução:</strong> disputas são

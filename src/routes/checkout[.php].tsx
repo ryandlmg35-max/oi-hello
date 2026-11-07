@@ -363,7 +363,6 @@ function PaginaCheckout() {
             {itens.map((item) => (
               <tr key={item.varianteId}>
                 <td>
-                  <div className="vendor-label">{item.vendor}</div>
                   <div className="summarydescription">{item.nome}</div>
                   <div className="summarydescription2">
                     {item.variante} · Qtd {item.quantidade}

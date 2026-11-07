@@ -32,8 +32,6 @@ export function FaixaVendedor({ vendedor, reviewsHref }: Props) {
               <p className="feature-description">
                 <img src="/pic/5star.png" width={100} alt="5 estrelas" />
                 <br />
-                {vendedor.vendas.toLocaleString("pt-BR")} vendas
-                <br />
               </p>
               {reviewsHref ? (
                 <a href={reviewsHref} className="btn-rating">
@@ -43,17 +41,17 @@ export function FaixaVendedor({ vendedor, reviewsHref }: Props) {
             </>
           ) : (
             <>
-              <img src="/pic/vendor.png" className="icon" alt="Vendedor" />
-              <h3 className="feature-title">Vendedor</h3>
-              <p className="feature-description">Vendedor registrado</p>
+              <img src="/pic/logo.png" className="icon" alt="Black Market 2026" />
+              <h3 className="feature-title">Black Market 2026</h3>
+              <p className="feature-description">Loja oficial</p>
             </>
           )}
         </div>
 
         <div className="feature-item">
           <img src="/pic/ups.png" className="icon" alt="Envio" />
-          <h3 className="feature-title">Envio Expresso</h3>
-          <p className="feature-description">Mundial, com código de rastreio</p>
+          <h3 className="feature-title">Envio Direto</h3>
+          <p className="feature-description">Nós mesmos enviamos, com código de rastreio</p>
         </div>
       </div>
       <p className="footnote">*Todos os pagamentos ficam protegidos até o produto ser recebido.</p>
