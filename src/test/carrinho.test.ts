@@ -54,9 +54,18 @@ describe("carrinho do mercado", () => {
   });
 
   it("mantem variantes diferentes do mesmo produto separadas", () => {
-    const outra = { ...variante, id: "var-2", variante: "10 GRAM", preco: 60, precoTexto: "$60.00" };
+    const outra = {
+      ...variante,
+      id: "var-2",
+      variante: "10 GRAM",
+      preco: 60,
+      precoTexto: "$60.00",
+    };
 
-    const itens = adicionarItem(adicionarItem([], criarItem(produto, variante)), criarItem(produto, outra));
+    const itens = adicionarItem(
+      adicionarItem([], criarItem(produto, variante)),
+      criarItem(produto, outra),
+    );
 
     expect(itens).toHaveLength(2);
     expect(subtotal(itens)).toBe(95);

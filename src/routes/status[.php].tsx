@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import { buscarPedidoPorChave } from "@/data/mercado/servidor";
 import { useAuth } from "@/features/auth/auth-context";
 import { listarMeusPedidos, type Pedido } from "@/features/pedidos/pedidos";
+import { buscarPedidoLocal } from "@/features/pedidos/pedidos-local";
 import { formatarCrypto, formatarDataHora, formatarBrl, statusDoPedido } from "@/lib/mercado";
 
 export const Route = createFileRoute("/status.php")({
@@ -51,6 +52,14 @@ function PaginaStatus() {
         setBuscando(false);
         return;
       }
+    }
+
+    // 3) pedidos salvos no navegador (clone de estudo, banco sem migration)
+    const local = buscarPedidoLocal(orderId, chave);
+    if (local) {
+      setPedido(local);
+      setBuscando(false);
+      return;
     }
 
     setAviso(

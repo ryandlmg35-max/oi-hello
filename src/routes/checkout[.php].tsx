@@ -49,7 +49,11 @@ function PaginaCheckout() {
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [erros, setErros] = useState<Erros>({});
-  const [pedido, setPedido] = useState<{ id: string; chave: string } | null>(null);
+  const [pedido, setPedido] = useState<{
+    id: string;
+    chave: string;
+    modo?: "banco" | "local";
+  } | null>(null);
 
   const [form, setForm] = useState({
     nome: user?.user_metadata?.["nome"] ?? "",
@@ -106,6 +110,15 @@ function PaginaCheckout() {
       <main className="checkout-page">
         <div className="checkout-card">
           <h1 className="checkout-heading">Pedido criado</h1>
+
+          {pedido.modo === "local" ? (
+            <div className="notice-box">
+              Pedido registrado localmente neste navegador: o projeto Supabase ainda não tem as
+              tabelas do mercado (migration 0001 pendente). O QR PIX, a chave secreta e o status
+              funcionam normalmente — assim que a migration for aplicada, os novos pedidos vão
+              direto para o banco.
+            </div>
+          ) : null}
 
           <div className="status-box awaiting">
             <div className="status-label">Aguardando pagamento</div>
@@ -279,7 +292,7 @@ function PaginaCheckout() {
       return;
     }
 
-    setPedido({ id: resultado.id, chave: resultado.chave ?? "" });
+    setPedido({ id: resultado.id, chave: resultado.chave ?? "", modo: resultado.modo ?? "banco" });
     limpar();
     toast.success(
       form.pagamento === "PIX"

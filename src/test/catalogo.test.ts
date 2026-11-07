@@ -57,7 +57,11 @@ describe("catalogo espelhado (Medical / Drugs)", () => {
     const faltando: string[] = [];
 
     for (const produto of PRODUTOS) {
-      const arquivos = [produto.imgPrincipal, ...produto.galeria, ...produto.variantes.map((v) => v.img)];
+      const arquivos = [
+        produto.imgPrincipal,
+        ...produto.galeria,
+        ...produto.variantes.map((v) => v.img),
+      ];
       for (const arquivo of arquivos) {
         if (!arquivo) continue;
         const destino = path.join(RAIZ, "public", arquivo);
