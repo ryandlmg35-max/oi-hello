@@ -10,33 +10,180 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccountDotphpRouteImport } from './routes/account[.php]'
+import { Route as AdminDotphpRouteImport } from './routes/admin[.php]'
+import { Route as CardDotphpRouteImport } from './routes/card[.php]'
+import { Route as CatDotphpRouteImport } from './routes/cat[.php]'
+import { Route as CheckoutDotphpRouteImport } from './routes/checkout[.php]'
+import { Route as ContactDotphpRouteImport } from './routes/contact[.php]'
+import { Route as EscrowOverviewDotphpRouteImport } from './routes/escrow-overview[.php]'
+import { Route as LoginDotphpRouteImport } from './routes/login[.php]'
+import { Route as ProductDotphpRouteImport } from './routes/product[.php]'
+import { Route as StatusDotphpRouteImport } from './routes/status[.php]'
+import { Route as VendorDotphpRouteImport } from './routes/vendor[.php]'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountDotphpRoute = AccountDotphpRouteImport.update({
+  id: '/account.php',
+  path: '/account.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDotphpRoute = AdminDotphpRouteImport.update({
+  id: '/admin.php',
+  path: '/admin.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CardDotphpRoute = CardDotphpRouteImport.update({
+  id: '/card.php',
+  path: '/card.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatDotphpRoute = CatDotphpRouteImport.update({
+  id: '/cat.php',
+  path: '/cat.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutDotphpRoute = CheckoutDotphpRouteImport.update({
+  id: '/checkout.php',
+  path: '/checkout.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactDotphpRoute = ContactDotphpRouteImport.update({
+  id: '/contact.php',
+  path: '/contact.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EscrowOverviewDotphpRoute = EscrowOverviewDotphpRouteImport.update({
+  id: '/escrow-overview.php',
+  path: '/escrow-overview.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginDotphpRoute = LoginDotphpRouteImport.update({
+  id: '/login.php',
+  path: '/login.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductDotphpRoute = ProductDotphpRouteImport.update({
+  id: '/product.php',
+  path: '/product.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatusDotphpRoute = StatusDotphpRouteImport.update({
+  id: '/status.php',
+  path: '/status.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorDotphpRoute = VendorDotphpRouteImport.update({
+  id: '/vendor.php',
+  path: '/vendor.php',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account.php': typeof AccountDotphpRoute
+  '/admin.php': typeof AdminDotphpRoute
+  '/card.php': typeof CardDotphpRoute
+  '/cat.php': typeof CatDotphpRoute
+  '/checkout.php': typeof CheckoutDotphpRoute
+  '/contact.php': typeof ContactDotphpRoute
+  '/escrow-overview.php': typeof EscrowOverviewDotphpRoute
+  '/login.php': typeof LoginDotphpRoute
+  '/product.php': typeof ProductDotphpRoute
+  '/status.php': typeof StatusDotphpRoute
+  '/vendor.php': typeof VendorDotphpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account.php': typeof AccountDotphpRoute
+  '/admin.php': typeof AdminDotphpRoute
+  '/card.php': typeof CardDotphpRoute
+  '/cat.php': typeof CatDotphpRoute
+  '/checkout.php': typeof CheckoutDotphpRoute
+  '/contact.php': typeof ContactDotphpRoute
+  '/escrow-overview.php': typeof EscrowOverviewDotphpRoute
+  '/login.php': typeof LoginDotphpRoute
+  '/product.php': typeof ProductDotphpRoute
+  '/status.php': typeof StatusDotphpRoute
+  '/vendor.php': typeof VendorDotphpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/account.php': typeof AccountDotphpRoute
+  '/admin.php': typeof AdminDotphpRoute
+  '/card.php': typeof CardDotphpRoute
+  '/cat.php': typeof CatDotphpRoute
+  '/checkout.php': typeof CheckoutDotphpRoute
+  '/contact.php': typeof ContactDotphpRoute
+  '/escrow-overview.php': typeof EscrowOverviewDotphpRoute
+  '/login.php': typeof LoginDotphpRoute
+  '/product.php': typeof ProductDotphpRoute
+  '/status.php': typeof StatusDotphpRoute
+  '/vendor.php': typeof VendorDotphpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/account.php'
+    | '/admin.php'
+    | '/card.php'
+    | '/cat.php'
+    | '/checkout.php'
+    | '/contact.php'
+    | '/escrow-overview.php'
+    | '/login.php'
+    | '/product.php'
+    | '/status.php'
+    | '/vendor.php'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/account.php'
+    | '/admin.php'
+    | '/card.php'
+    | '/cat.php'
+    | '/checkout.php'
+    | '/contact.php'
+    | '/escrow-overview.php'
+    | '/login.php'
+    | '/product.php'
+    | '/status.php'
+    | '/vendor.php'
+  id:
+    | '__root__'
+    | '/'
+    | '/account.php'
+    | '/admin.php'
+    | '/card.php'
+    | '/cat.php'
+    | '/checkout.php'
+    | '/contact.php'
+    | '/escrow-overview.php'
+    | '/login.php'
+    | '/product.php'
+    | '/status.php'
+    | '/vendor.php'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountDotphpRoute: typeof AccountDotphpRoute
+  AdminDotphpRoute: typeof AdminDotphpRoute
+  CardDotphpRoute: typeof CardDotphpRoute
+  CatDotphpRoute: typeof CatDotphpRoute
+  CheckoutDotphpRoute: typeof CheckoutDotphpRoute
+  ContactDotphpRoute: typeof ContactDotphpRoute
+  EscrowOverviewDotphpRoute: typeof EscrowOverviewDotphpRoute
+  LoginDotphpRoute: typeof LoginDotphpRoute
+  ProductDotphpRoute: typeof ProductDotphpRoute
+  StatusDotphpRoute: typeof StatusDotphpRoute
+  VendorDotphpRoute: typeof VendorDotphpRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +195,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account.php': {
+      id: '/account.php'
+      path: '/account.php'
+      fullPath: '/account.php'
+      preLoaderRoute: typeof AccountDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin.php': {
+      id: '/admin.php'
+      path: '/admin.php'
+      fullPath: '/admin.php'
+      preLoaderRoute: typeof AdminDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/card.php': {
+      id: '/card.php'
+      path: '/card.php'
+      fullPath: '/card.php'
+      preLoaderRoute: typeof CardDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cat.php': {
+      id: '/cat.php'
+      path: '/cat.php'
+      fullPath: '/cat.php'
+      preLoaderRoute: typeof CatDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout.php': {
+      id: '/checkout.php'
+      path: '/checkout.php'
+      fullPath: '/checkout.php'
+      preLoaderRoute: typeof CheckoutDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact.php': {
+      id: '/contact.php'
+      path: '/contact.php'
+      fullPath: '/contact.php'
+      preLoaderRoute: typeof ContactDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/escrow-overview.php': {
+      id: '/escrow-overview.php'
+      path: '/escrow-overview.php'
+      fullPath: '/escrow-overview.php'
+      preLoaderRoute: typeof EscrowOverviewDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login.php': {
+      id: '/login.php'
+      path: '/login.php'
+      fullPath: '/login.php'
+      preLoaderRoute: typeof LoginDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product.php': {
+      id: '/product.php'
+      path: '/product.php'
+      fullPath: '/product.php'
+      preLoaderRoute: typeof ProductDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/status.php': {
+      id: '/status.php'
+      path: '/status.php'
+      fullPath: '/status.php'
+      preLoaderRoute: typeof StatusDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendor.php': {
+      id: '/vendor.php'
+      path: '/vendor.php'
+      fullPath: '/vendor.php'
+      preLoaderRoute: typeof VendorDotphpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountDotphpRoute: AccountDotphpRoute,
+  AdminDotphpRoute: AdminDotphpRoute,
+  CardDotphpRoute: CardDotphpRoute,
+  CatDotphpRoute: CatDotphpRoute,
+  CheckoutDotphpRoute: CheckoutDotphpRoute,
+  ContactDotphpRoute: ContactDotphpRoute,
+  EscrowOverviewDotphpRoute: EscrowOverviewDotphpRoute,
+  LoginDotphpRoute: LoginDotphpRoute,
+  ProductDotphpRoute: ProductDotphpRoute,
+  StatusDotphpRoute: StatusDotphpRoute,
+  VendorDotphpRoute: VendorDotphpRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

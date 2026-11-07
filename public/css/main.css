@@ -1,0 +1,238 @@
+/* ==============================================
+   BLACK MARKET 2026 — MAIN CSS
+   Full Glassmorphism / Dark Theme
+   ============================================== */
+
+/* --- Global --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Comfortaa', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Deep dark gradient background — glass needs depth behind it */
+  background: #0a0a14;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(233,30,99,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(26,26,80,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 0%, rgba(0,28,56,0.5) 0%, transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: rgba(255,255,255,0.85);
+}
+
+a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #fff;
+}
+
+/* --- Logo / Header --- */
+.headerpic {
+  display: block;
+  margin: 1.5em auto 1em;
+  max-width: min(380px, 85vw);
+  width: 100%;
+}
+
+.headerpic2 {
+  display: block;
+  margin: 1.5em auto 1em;
+  max-width: min(340px, 85vw);
+  width: 100%;
+}
+
+.headerpic3 {
+  display: block;
+  margin: 0.5em auto 1.5em;
+  max-width: min(360px, 85vw);
+  width: 100%;
+}
+
+/* --- Global Glass Button --- */
+.btn-rating {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 22px;
+  background: rgba(233,30,99,0.15);
+  color: #fff;
+  border: 1px solid rgba(233,30,99,0.25);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 36px;
+  text-decoration: none;
+  text-align: center;
+  font-family: inherit;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.btn-rating:hover {
+  background: rgba(233,30,99,0.3);
+  border-color: rgba(233,30,99,0.45);
+  box-shadow: 0 2px 14px rgba(233,30,99,0.2);
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+.btn-rating:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* --- Main Font --- */
+.mainfont {
+  color: white;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+/* --- Glass Containers --- */
+.maincontainer {
+  font-family: 'Comfortaa', system-ui, sans-serif;
+  max-width: 95%;
+  width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  margin: 2em auto;
+  padding: 1.5em;
+  color: rgba(255,255,255,0.85);
+}
+
+.vendorcontainer {
+  max-width: 1400px;
+  width: 97%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  margin: 1em auto 2em;
+  padding: 1em;
+  color: rgba(255,255,255,0.85);
+}
+
+.vendorcontainer2 {
+  max-width: 1200px;
+  width: 97%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  margin: 1em auto 2em;
+  padding: 1em;
+  color: rgba(255,255,255,0.85);
+}
+
+.vendortext {
+  color: rgba(255,255,255,0.5);
+}
+
+.vendorcontainertext {
+  font-size: 13px;
+  margin-left: 1em;
+  font-style: italic;
+  color: rgba(255,255,255,0.4);
+}
+
+.escrowpic {
+  max-width: 100px;
+}
+
+/* --- Global Select --- */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: none;
+  border-radius: 10px;
+  padding: 0.5em 2em 0.5em 1em;
+  color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.07);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888'%3E%3Cpath d='M6 8.5L0.8 3.3h10.4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+select:focus {
+  outline: none;
+  border-color: rgba(233,30,99,0.4);
+}
+
+select option {
+  background: #1a1a2e;
+  color: #fff;
+}
+
+.select {
+  position: relative;
+  display: inline-flex;
+  min-width: 12em;
+  height: 2.8em;
+  border-radius: 10px;
+  overflow: hidden;
+  color: rgba(255,255,255,0.6);
+}
+
+/* --- Fieldset --- */
+fieldset {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.03);
+  padding: 1em;
+}
+
+/* --- Misc --- */
+.text {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .vendorcontainer, .vendorcontainer2 {
+    max-width: 100%;
+    width: 100%;
+    margin: 0.5em 0 1.5em;
+    border-radius: 12px;
+    padding: 0.75em;
+  }
+
+  .maincontainer {
+    max-width: 100%;
+    width: 96%;
+    border-radius: 14px;
+  }
+
+  .headerpic, .headerpic2, .headerpic3 {
+    max-width: 70vw;
+    margin-top: 1em;
+    margin-bottom: 0.75em;
+  }
+}
