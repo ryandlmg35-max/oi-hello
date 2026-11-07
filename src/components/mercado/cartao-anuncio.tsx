@@ -44,7 +44,7 @@ export function CartaoAnuncio({ produto, variante }: Props) {
           </div>
         </p>
         <Link to={para} className="details-button2">
-          DETAILS
+          DETALHES
         </Link>
       </div>
     </div>

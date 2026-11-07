@@ -16,7 +16,7 @@ SwIbDAAKCRAzfyHDZL9Ehi0AAP96hVX46259AdIuSLtXQT0fwrWqJzFUOrcJrRV8
 export const Route = createFileRoute("/contact.php")({
   head: () => ({
     meta: [
-      { title: "Contact | Black Market 2026" },
+      { title: "Contato | Black Market 2026" },
       { name: "description", content: "Fale com a equipe e pegue a chave PGP do mirror." },
     ],
   }),
@@ -38,13 +38,13 @@ function PaginaContato() {
               marginBottom: "16px",
             }}
           >
-            Questions?
+            Dúvidas?
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>Reach out to our team.</p>
+          <p style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>Fale com a equipe.</p>
           <p style={{ color: "rgba(255,255,255,0.85)", marginTop: "10px" }}>
             support@blackmarket.demo
           </p>
-          <p style={{ color: "rgba(255,255,255,0.6)", marginTop: "18px" }}>Market PGP Key:</p>
+          <p style={{ color: "rgba(255,255,255,0.6)", marginTop: "18px" }}>Chave PGP do mercado:</p>
           <pre
             style={{
               whiteSpace: "pre-wrap",

@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/features/auth/auth-context";
 import { useCarrinho } from "@/features/carrinho/carrinho-context";
 import { criarPedido } from "@/features/pedidos/pedidos";
-import { enderecoEscrow, formatarCrypto, formatarUsd } from "@/lib/mercado";
+import { enderecoEscrow, formatarBrl, formatarCrypto } from "@/lib/mercado";
 
 const esquema = z.object({
   nome: z.string().min(3, "Informe seu nome completo"),
@@ -50,7 +50,7 @@ function PaginaCheckout() {
     numero: "",
     complemento: "",
     cidade: "",
-    pais: "Brazil",
+    pais: "Brasil",
     cep: "",
     pagamento: "BTC" as "BTC" | "ETH",
     observacoes: "",
@@ -61,7 +61,7 @@ function PaginaCheckout() {
       <main className="checkout-page">
         <div className="checkout-card">
           <h1 className="checkout-heading">Checkout</h1>
-          <p className="info-text">Checking session...</p>
+          <p className="info-text">Verificando sessão...</p>
         </div>
       </main>
     );
@@ -74,14 +74,14 @@ function PaginaCheckout() {
           <h1 className="checkout-heading">Checkout</h1>
           <img src="/pic/logo.png" width={180} alt="Checkout" />
           <p className="info-text">
-            Entre na sua conta para gerar o endereco de escrow e finalizar o pedido.
+            Entre na sua conta para gerar o endereço de escrow e finalizar o pedido.
           </p>
           <div className="cart-actions">
             <Link to="/login.php" search={{ redirect: "/checkout.php" }} className="btn-rating">
-              LOGIN
+              ENTRAR
             </Link>
             <Link to="/cat.php" search={{ cat: "drugs" }} className="btn-outline">
-              Continue Shopping
+              Continuar comprando
             </Link>
           </div>
         </div>
@@ -94,26 +94,26 @@ function PaginaCheckout() {
     return (
       <main className="checkout-page">
         <div className="checkout-card">
-          <h1 className="checkout-heading">Order created</h1>
+          <h1 className="checkout-heading">Pedido criado</h1>
 
           <div className="status-box awaiting">
-            <div className="status-label">Awaiting payment</div>
+            <div className="status-label">Aguardando pagamento</div>
             <div className="status-value">
-              {formatarUsd(subtotal)} — {formatarCrypto(subtotal, form.pagamento)}
+              {formatarBrl(subtotal)} — {formatarCrypto(subtotal, form.pagamento)}
             </div>
           </div>
 
           <div className="wallet-box">
-            <div className="key-label">Escrow address ({form.pagamento})</div>
+            <div className="key-label">Endereço escrow ({form.pagamento})</div>
             <div className="key-value">{endereco}</div>
             <p className="info-text">
-              Envie o valor exato para o endereco. O pedido confirma automaticamente apos 2
-              confirmacoes de rede.
+              Envie o valor exato para o endereço. O pedido confirma automaticamente após 2
+              confirmações de rede.
             </p>
           </div>
 
           <div className="secret-box">
-            <div className="key-label">Secret key (use no Order Status)</div>
+            <div className="key-label">Chave secreta (use no Status do Pedido)</div>
             <div className="key-value">{pedido.chave}</div>
           </div>
 
@@ -121,7 +121,7 @@ function PaginaCheckout() {
             <tbody>
               <tr>
                 <td>
-                  <div className="summarydescription">Order ID</div>
+                  <div className="summarydescription">ID do Pedido</div>
                 </td>
                 <td>
                   <div className="summarydescription2">{pedido.id}</div>
@@ -129,7 +129,7 @@ function PaginaCheckout() {
               </tr>
               <tr>
                 <td>
-                  <div className="summarydescription">Items</div>
+                  <div className="summarydescription">Itens</div>
                 </td>
                 <td>
                   <div className="summarydescription2">{itens.length}</div>
@@ -140,15 +140,15 @@ function PaginaCheckout() {
 
           <div className="cart-actions">
             <Link to="/status.php" className="btn-rating">
-              ORDER STATUS
+              STATUS DO PEDIDO
             </Link>
             <Link to="/account.php" className="btn-outline">
-              MY ORDERS
+              MEUS PEDIDOS
             </Link>
           </div>
 
           <p className="disclaimer">
-            Clone de estudo: endereco de escrow e valores sao simulados, nenhuma transacao real e
+            Clone de estudo: endereço de escrow e valores são simulados, nenhuma transação real é
             executada.
           </p>
         </div>
@@ -162,9 +162,9 @@ function PaginaCheckout() {
         <div className="checkout-card cart-empty">
           <h1 className="checkout-heading">Checkout</h1>
           <img src="/pic/logo.png" width={180} alt="Checkout" />
-          <p className="info-text">Your cart is empty.</p>
+          <p className="info-text">Seu carrinho está vazio.</p>
           <Link to="/cat.php" search={{ cat: "drugs" }} className="btn-rating">
-            Continue Shopping
+            Continuar comprando
           </Link>
         </div>
       </main>
@@ -218,7 +218,7 @@ function PaginaCheckout() {
 
     setPedido({ id: resultado.id, chave: resultado.chave ?? "" });
     limpar();
-    toast.success("Pedido criado — escrow address generated");
+    toast.success("Pedido criado — endereço de escrow gerado");
   }
 
   return (
@@ -227,7 +227,7 @@ function PaginaCheckout() {
         <h1 className="checkout-heading">Checkout</h1>
 
         <div className="form-group">
-          <label htmlFor="nome">Full name</label>
+          <label htmlFor="nome">Nome completo</label>
           <input
             id="nome"
             name="nome"
@@ -252,7 +252,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="telefone">Phone</label>
+          <label htmlFor="telefone">Telefone</label>
           <input
             id="telefone"
             name="telefone"
@@ -264,7 +264,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="endereco">Address</label>
+          <label htmlFor="endereco">Endereço</label>
           <input
             id="endereco"
             name="endereco"
@@ -276,7 +276,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="numero">Number</label>
+          <label htmlFor="numero">Número</label>
           <input
             id="numero"
             name="numero"
@@ -288,7 +288,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="complemento">Complement (optional)</label>
+          <label htmlFor="complemento">Complemento (opcional)</label>
           <input
             id="complemento"
             name="complemento"
@@ -298,7 +298,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="cidade">City</label>
+          <label htmlFor="cidade">Cidade</label>
           <input
             id="cidade"
             name="cidade"
@@ -310,7 +310,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="pais">Country</label>
+          <label htmlFor="pais">País</label>
           <input
             id="pais"
             name="pais"
@@ -322,7 +322,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="cep">ZIP / CEP</label>
+          <label htmlFor="cep">CEP</label>
           <input
             id="cep"
             name="cep"
@@ -334,7 +334,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="pagamento">Payment method</label>
+          <label htmlFor="pagamento">Forma de pagamento</label>
           <select
             id="pagamento"
             name="pagamento"
@@ -347,7 +347,7 @@ function PaginaCheckout() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="observacoes">Notes (optional)</label>
+          <label htmlFor="observacoes">Observações (opcional)</label>
           <textarea
             id="observacoes"
             name="observacoes"
@@ -366,12 +366,12 @@ function PaginaCheckout() {
                   <div className="vendor-label">{item.vendor}</div>
                   <div className="summarydescription">{item.nome}</div>
                   <div className="summarydescription2">
-                    {item.variante} · Qty {item.quantidade}
+                    {item.variante} · Qtd {item.quantidade}
                   </div>
                 </td>
                 <td>
                   <div className="summarydescription">
-                    {formatarUsd(item.preco * item.quantidade)}
+                    {formatarBrl(item.preco * item.quantidade)}
                   </div>
                 </td>
               </tr>
@@ -380,10 +380,10 @@ function PaginaCheckout() {
         </table>
 
         <div className="checkout-total">
-          <div className="amount-usd">{formatarUsd(subtotal)}</div>
+          <div className="amount-usd">{formatarBrl(subtotal)}</div>
           <div className="amount-crypto">{formatarCrypto(subtotal, form.pagamento)}</div>
           <span className="escrow-badge">
-            <img src="/pic/verified.png" alt="verificado" /> MultiSig escrow — 10 days
+            <img src="/pic/verified.png" alt="verificado" /> Escrow MultiSig — 10 dias
           </span>
         </div>
 
@@ -391,15 +391,15 @@ function PaginaCheckout() {
 
         <div className="form-actions">
           <button type="submit" className="btn-buy2" disabled={enviando}>
-            {enviando ? "PROCESSING..." : "PLACE ESCROW ORDER"}
+            {enviando ? "PROCESSANDO..." : "FINALIZAR PEDIDO (ESCROW)"}
           </button>
           <Link to="/card.php" className="btn-outline">
-            Back to Cart
+            Voltar ao carrinho
           </Link>
         </div>
 
         <p className="disclaimer">
-          Clone de estudo: nenhum pagamento real e processado. O endereco de escrow e gerado a
+          Clone de estudo: nenhum pagamento real é processado. O endereço de escrow é gerado a
           partir do id do pedido.
         </p>
       </form>

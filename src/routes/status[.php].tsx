@@ -3,15 +3,15 @@ import { useState, type FormEvent } from "react";
 import { buscarPedidoPorChave } from "@/data/mercado/servidor";
 import { useAuth } from "@/features/auth/auth-context";
 import { listarMeusPedidos, type Pedido } from "@/features/pedidos/pedidos";
-import { formatarCrypto, formatarDataHora, formatarUsd, statusDoPedido } from "@/lib/mercado";
+import { formatarCrypto, formatarDataHora, formatarBrl, statusDoPedido } from "@/lib/mercado";
 
 export const Route = createFileRoute("/status.php")({
   head: () => ({
     meta: [
-      { title: "Order Status | Black Market 2026" },
+      { title: "Status do Pedido | Black Market 2026" },
       {
         name: "description",
-        content: "Consulte o status do seu pedido pelo Order ID e Secret Key.",
+        content: "Consulte o status do seu pedido pelo ID do Pedido e Chave Secreta.",
       },
     ],
   }),
@@ -55,8 +55,8 @@ function PaginaStatus() {
 
     setAviso(
       resposta.disponivel
-        ? "Order not found — check the Order ID and Secret Key."
-        : "Order lookup by secret key requires the server service role. Log in with the account that created the order.",
+        ? "Pedido não encontrado — confira o ID do Pedido e a Chave Secreta."
+        : "A consulta por chave secreta exige a service role do servidor. Entre com a conta que criou o pedido.",
     );
     setBuscando(false);
   }
@@ -64,10 +64,10 @@ function PaginaStatus() {
   return (
     <main className="checkout-page">
       <form className="checkout-card" onSubmit={consultar}>
-        <h1 className="checkout-heading">Order Status</h1>
+        <h1 className="checkout-heading">Status do Pedido</h1>
 
         <div className="form-group">
-          <label htmlFor="order-id">Order ID</label>
+          <label htmlFor="order-id">ID do Pedido</label>
           <input
             id="order-id"
             value={orderId}
@@ -78,7 +78,7 @@ function PaginaStatus() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="secret">Secret Key</label>
+          <label htmlFor="secret">Chave Secreta</label>
           <input
             id="secret"
             value={chave}
@@ -89,11 +89,11 @@ function PaginaStatus() {
 
         <div className="form-actions">
           <button type="submit" className="btn-buy2" disabled={buscando || loading}>
-            {buscando ? "CHECKING..." : "CHECK STATUS"}
+            {buscando ? "CONSULTANDO..." : "CONSULTAR STATUS"}
           </button>
           {!user ? (
             <Link to="/login.php" search={{ redirect: "/status.php" }} className="btn-outline">
-              LOGIN
+              ENTRAR
             </Link>
           ) : null}
         </div>
@@ -106,7 +106,7 @@ function PaginaStatus() {
             <div className={`status-box ${statusDoPedido(pedido.status).classe}`}>
               <div className="status-label">{statusDoPedido(pedido.status).rotulo}</div>
               <div className="status-value">
-                {formatarUsd(Number(pedido.valor_total))} ·{" "}
+                {formatarBrl(Number(pedido.valor_total))} ·{" "}
                 {formatarCrypto(
                   Number(pedido.valor_total),
                   (pedido.moeda as "BTC" | "ETH") ?? "BTC",
@@ -118,7 +118,7 @@ function PaginaStatus() {
               <tbody>
                 <tr>
                   <td>
-                    <div className="summarydescription">Order ID</div>
+                    <div className="summarydescription">ID do Pedido</div>
                   </td>
                   <td>
                     <div className="summarydescription2">{pedido.id}</div>
@@ -126,7 +126,7 @@ function PaginaStatus() {
                 </tr>
                 <tr>
                   <td>
-                    <div className="summarydescription">Created</div>
+                    <div className="summarydescription">Criado em</div>
                   </td>
                   <td>
                     <div className="summarydescription2">{formatarDataHora(pedido.criado_em)}</div>
@@ -134,7 +134,7 @@ function PaginaStatus() {
                 </tr>
                 <tr>
                   <td>
-                    <div className="summarydescription">Payment</div>
+                    <div className="summarydescription">Pagamento</div>
                   </td>
                   <td>
                     <div className="summarydescription2">
@@ -148,12 +148,12 @@ function PaginaStatus() {
                       <div className="vendor-label">{item.vendedor ?? ""}</div>
                       <div className="summarydescription">{item.produto_nome ?? ""}</div>
                       <div className="summarydescription2">
-                        {item.variante ?? ""} · Qty {item.quantidade}
+                        {item.variante ?? ""} · Qtd {item.quantidade}
                       </div>
                     </td>
                     <td>
                       <div className="summarydescription">
-                        {formatarUsd(Number(item.preco_unitario) * item.quantidade)}
+                        {formatarBrl(Number(item.preco_unitario) * item.quantidade)}
                       </div>
                     </td>
                   </tr>
@@ -162,7 +162,7 @@ function PaginaStatus() {
             </table>
 
             <div className="secret-box">
-              <div className="key-label">Secret key</div>
+              <div className="key-label">Chave secreta</div>
               <div className="key-value">{pedido.chave_secreta ?? "—"}</div>
             </div>
           </>

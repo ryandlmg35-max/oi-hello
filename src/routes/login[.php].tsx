@@ -6,7 +6,7 @@ import { useAuth } from "@/features/auth/auth-context";
 export const Route = createFileRoute("/login.php")({
   head: () => ({
     meta: [
-      { title: "Login | Black Market 2026" },
+      { title: "Entrar | Black Market 2026" },
       { name: "description", content: "Acesse sua conta para finalizar pedidos com escrow." },
     ],
   }),
@@ -68,11 +68,11 @@ function PaginaLogin() {
   return (
     <main className="checkout-page">
       <form className="checkout-card" onSubmit={enviar}>
-        <h1 className="checkout-heading">{modo === "login" ? "Login" : "Create account"}</h1>
+        <h1 className="checkout-heading">{modo === "login" ? "Entrar" : "Criar conta"}</h1>
 
         {modo === "cadastro" ? (
           <div className="form-group">
-            <label htmlFor="nome">Store / User name</label>
+            <label htmlFor="nome">Nome da loja / usuário</label>
             <input id="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
           </div>
         ) : null}
@@ -89,7 +89,7 @@ function PaginaLogin() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="senha">Password</label>
+          <label htmlFor="senha">Senha</label>
           <input
             id="senha"
             type="password"
@@ -104,7 +104,7 @@ function PaginaLogin() {
 
         <div className="form-actions">
           <button type="submit" className="btn-buy2" disabled={enviando}>
-            {enviando ? "..." : modo === "login" ? "LOGIN" : "SIGN UP"}
+            {enviando ? "..." : modo === "login" ? "ENTRAR" : "CADASTRAR"}
           </button>
           <button
             type="button"
@@ -114,13 +114,13 @@ function PaginaLogin() {
               setMensagem(null);
             }}
           >
-            {modo === "login" ? "Create account" : "I have an account"}
+            {modo === "login" ? "Criar conta" : "Já tenho conta"}
           </button>
         </div>
 
         <p className="cart-hint">
-          Accounts are stored in the project Supabase. <Link to="/status.php">Order status</Link>{" "}
-          requires the same session.
+          As contas ficam no Supabase do projeto. <Link to="/status.php">Status do pedido</Link> usa
+          a mesma sessão.
         </p>
       </form>
     </main>

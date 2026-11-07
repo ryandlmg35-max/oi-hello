@@ -9,18 +9,18 @@ export function Rodape() {
             <Link to="/escrow-overview.php">Escrow</Link>
           </li>
           <li>
-            <Link to="/account.php">My Orders</Link>
+            <Link to="/account.php">Meus Pedidos</Link>
           </li>
           <li>
             <Link to="/login.php" search={{ redirect: "/account.php" }}>
-              Login
+              Entrar
             </Link>
           </li>
           <li>
-            <Link to="/status.php">Order Status</Link>
+            <Link to="/status.php">Status do Pedido</Link>
           </li>
           <li>
-            <Link to="/contact.php">Contact</Link>
+            <Link to="/contact.php">Contato</Link>
           </li>
         </ul>
       </nav>

@@ -19,8 +19,8 @@ export function FaixaVendedor({ vendedor, reviewsHref }: Props) {
         <div className="feature-item">
           <Link to="/escrow-overview.php" className="headerlink">
             <img src="/pic/becomevendor.png" className="icon" alt="Escrow" />
-            <h3 className="feature-title">Escrow Protection</h3>
-            <p className="feature-description">100% Secure Payment System*</p>
+            <h3 className="feature-title">Proteção Escrow</h3>
+            <p className="feature-description">Sistema de pagamento 100% seguro*</p>
           </Link>
         </div>
 
@@ -32,31 +32,31 @@ export function FaixaVendedor({ vendedor, reviewsHref }: Props) {
               <p className="feature-description">
                 <img src="/pic/5star.png" width={100} alt="5 estrelas" />
                 <br />
-                {vendedor.vendas.toLocaleString("en-US")} Sellings
+                {vendedor.vendas.toLocaleString("pt-BR")} vendas
                 <br />
               </p>
               {reviewsHref ? (
                 <a href={reviewsHref} className="btn-rating">
-                  REVIEWS
+                  AVALIAÇÕES
                 </a>
               ) : null}
             </>
           ) : (
             <>
-              <img src="/pic/vendor.png" className="icon" alt="Vendor" />
-              <h3 className="feature-title">Vendor</h3>
-              <p className="feature-description">Registered seller</p>
+              <img src="/pic/vendor.png" className="icon" alt="Vendedor" />
+              <h3 className="feature-title">Vendedor</h3>
+              <p className="feature-description">Vendedor registrado</p>
             </>
           )}
         </div>
 
         <div className="feature-item">
-          <img src="/pic/ups.png" className="icon" alt="Shipping" />
-          <h3 className="feature-title">Express Shipping</h3>
-          <p className="feature-description">Worldwide With Tracking ID</p>
+          <img src="/pic/ups.png" className="icon" alt="Envio" />
+          <h3 className="feature-title">Envio Expresso</h3>
+          <p className="feature-description">Mundial, com código de rastreio</p>
         </div>
       </div>
-      <p className="footnote">*All payments are protected until the product is received.</p>
+      <p className="footnote">*Todos os pagamentos ficam protegidos até o produto ser recebido.</p>
     </section>
   );
 }

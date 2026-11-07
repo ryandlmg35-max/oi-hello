@@ -16,8 +16,8 @@ const slug = (valor: string) =>
 export const Route = createFileRoute("/product.php")({
   head: () => ({
     meta: [
-      { title: "Product | Black Market 2026" },
-      { name: "description", content: "Listing com escrow MultiSig e entrega expressa." },
+      { title: "Produto | Black Market 2026" },
+      { name: "description", content: "Anúncio com escrow MultiSig e entrega expressa." },
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
@@ -78,7 +78,7 @@ function PaginaProduto() {
         img: variante.img || produto!.imgPrincipal,
       },
     );
-    toast.success(`${produto!.titulo} — ${variante.variante} added to card`);
+    toast.success(`${produto!.titulo} — ${variante.variante} adicionado ao carrinho`);
   }
 
   return (
@@ -139,17 +139,17 @@ function PaginaProduto() {
               >
                 {produto.variantes.map((v) => (
                   <option key={v.id} value={v.id}>
-                    {v.variante} {v.precoAntigo ? `(${v.precoAntigo})` : ""} for {v.precoTexto}
+                    {v.variante} {v.precoAntigo ? `(${v.precoAntigo})` : ""} por {v.precoTexto}
                   </option>
                 ))}
               </select>
               <br />
               <button type="button" className="btn-buy2" onClick={pedir}>
-                ORDER
+                PEDIR
               </button>
               <div style={{ marginTop: "10px" }}>
                 <Link to="/card.php" className="btn-rating">
-                  GO TO CARD
+                  VER CARRINHO
                 </Link>
               </div>
             </div>
@@ -162,12 +162,12 @@ function PaginaProduto() {
 
       <section className="product4-card" id="comments">
         <div className="product-text">
-          <h3 className="product-title">Comments</h3>
+          <h3 className="product-title">Comentários</h3>
           <div className="product-info-bar" />
         </div>
 
         {produto.comentarios.length === 0 ? (
-          <p className="footnote">No comments yet.</p>
+          <p className="footnote">Nenhum comentário ainda.</p>
         ) : (
           produto.comentarios.map((comentario, i) => (
             <label htmlFor={`fname-${i}`} key={`${comentario.autor}-${i}`}>
@@ -186,8 +186,8 @@ function PaginaProduto() {
                 </div>
                 <div className="features-grid">
                   <p className="footnote">
-                    <img src="/pic/verified.png" className="verfiedpic" alt="verificado" />{" "}
-                    Confirmed Purchase
+                    <img src="/pic/verified.png" className="verfiedpic" alt="verificado" /> Compra
+                    confirmada
                     <br />
                     {comentario.compra}
                   </p>
@@ -208,7 +208,7 @@ function PaginaProduto() {
             hash="comments"
             className="btn-rating"
           >
-            See All
+            Ver todas
           </Link>
         </center>
       </section>

@@ -9,19 +9,19 @@ export function PromoEscrow() {
       </Link>
       <div className="escrow-promo-body">
         <h3 className="escrow-promo-title">
-          Dedicated <span>MultiSig</span> Escrow System
+          Sistema de <span>Escrow MultiSig</span> Dedicado
         </h3>
         <p className="escrow-promo-text">
-          Your funds stay locked in escrow until your order arrives. Learn more about our market
-          security.
+          Seu dinheiro fica travado no escrow até o pedido chegar. Saiba mais sobre a segurança do
+          nosso mercado.
         </p>
         <div className="escrow-promo-chips">
-          <span className="escrow-chip">MultiSig Protected</span>
-          <span className="escrow-chip">10 Days Escrow</span>
-          <span className="escrow-chip">BTC & ETH</span>
+          <span className="escrow-chip">Protegido por MultiSig</span>
+          <span className="escrow-chip">Escrow de 10 dias</span>
+          <span className="escrow-chip">BTC e ETH</span>
         </div>
         <Link to="/escrow-overview.php" className="details-button2">
-          DETAILS
+          DETALHES
         </Link>
       </div>
     </section>

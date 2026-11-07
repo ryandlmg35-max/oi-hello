@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { MercadoDatabase } from "@/data/mercado/db-tipos";
+import { formatarBrl } from "@/lib/mercado";
 
 export type Comentario = {
   autor: string;
@@ -78,7 +79,7 @@ async function clientePublico() {
 }
 
 function precoTexto(valor: number): string {
-  return `$${valor.toFixed(2)}`;
+  return formatarBrl(valor);
 }
 
 /**
@@ -173,7 +174,7 @@ export const carregarCatalogo = createServerFn({ method: "GET" }).handler(
         galeria: linha.galeria ?? [],
         imgPrincipal: linha.imagem_url ?? "",
         categoria: linha.categoria ?? CATEGORIA,
-        envio: linha.envio ?? "Worldwide Shipping",
+        envio: linha.envio ?? "Envio mundial",
         vendas: linha.vendas ?? 0,
         comentarios: (linha.comentarios ?? []) as Comentario[],
         paises: [],

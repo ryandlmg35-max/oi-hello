@@ -1,3 +1,5 @@
+import { formatarBrl } from "@/lib/mercado";
+
 export type ItemCarrinho = {
   varianteId: string;
   produtoId: string;
@@ -95,7 +97,7 @@ export function normalizarItens(bruto: unknown): ItemCarrinho[] {
       nome: item.nome,
       variante: typeof item.variante === "string" ? item.variante : "",
       preco,
-      precoTexto: typeof item.precoTexto === "string" ? item.precoTexto : `$${preco.toFixed(2)}`,
+      precoTexto: typeof item.precoTexto === "string" ? item.precoTexto : formatarBrl(preco),
       img: typeof item.img === "string" ? item.img : "",
       vendor: typeof item.vendor === "string" ? item.vendor : "",
       vendorSlug: typeof item.vendorSlug === "string" ? item.vendorSlug : "",

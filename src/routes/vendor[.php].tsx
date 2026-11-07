@@ -15,8 +15,8 @@ const slug = (valor: string) =>
 export const Route = createFileRoute("/vendor.php")({
   head: () => ({
     meta: [
-      { title: "Vendor | Black Market 2026" },
-      { name: "description", content: "Loja do vendedor — listings com escrow MultiSig." },
+      { title: "Vendedor | Black Market 2026" },
+      { name: "description", content: "Loja do vendedor — anúncios com escrow MultiSig." },
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
@@ -68,7 +68,7 @@ function PaginaVendedor() {
         <section className="features-card">
           <div className="features-grid">
             <div className="feature-item">
-              <h3 className="feature-title">No listings</h3>
+              <h3 className="feature-title">Nenhum anúncio</h3>
               <Link to="/cat.php" search={{ cat: "drugs" }} className="details-button2">
                 Ver Medical / Drugs
               </Link>

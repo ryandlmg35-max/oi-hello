@@ -22,13 +22,11 @@ function NotFoundComponent() {
   return (
     <div className="maincontainer" style={{ marginTop: "3em" }}>
       <h1 style={{ textAlign: "center", color: "#fff" }}>404</h1>
-      <h2 style={{ textAlign: "center" }}>Page not found</h2>
-      <p style={{ textAlign: "center" }}>
-        The page you&apos;re looking for doesn&apos;t exist or has been moved.
-      </p>
+      <h2 style={{ textAlign: "center" }}>Página não encontrada</h2>
+      <p style={{ textAlign: "center" }}>A página que você procura não existe ou foi movida.</p>
       <div style={{ textAlign: "center" }}>
         <Link to="/" className="details-button2">
-          Go home
+          Ir para a home
         </Link>
       </div>
     </div>
@@ -44,9 +42,9 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
   return (
     <div className="maincontainer" style={{ marginTop: "3em" }}>
-      <h1 style={{ textAlign: "center", color: "#fff" }}>This page didn&apos;t load</h1>
+      <h1 style={{ textAlign: "center", color: "#fff" }}>Esta página não carregou</h1>
       <p style={{ textAlign: "center" }}>
-        Something went wrong on our end. You can try refreshing or head back home.
+        Algo deu errado do nosso lado. Tente atualizar ou volte para a home.
       </p>
       <div style={{ textAlign: "center" }}>
         <button
@@ -57,7 +55,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
             reset();
           }}
         >
-          Try again
+          Tentar de novo
         </button>
       </div>
     </div>
@@ -69,17 +67,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Black Market 2026 | Escrow Marketplace" },
+      { title: "Black Market 2026 | Mercado com Escrow" },
       {
         name: "description",
         content:
-          "Escrow marketplace clone — Medical / Drugs. MultiSig escrow, 10 days buyer protection, BTC & ETH.",
+          "Marketplace com escrow — Medical / Drugs. Escrow MultiSig, 10 dias de proteção ao comprador, BTC e ETH.",
       },
-      { property: "og:title", content: "Black Market 2026 | Escrow Marketplace" },
+      { property: "og:title", content: "Black Market 2026 | Mercado com Escrow" },
       {
         property: "og:description",
         content:
-          "Escrow marketplace clone — Medical / Drugs. MultiSig escrow, 10 days buyer protection.",
+          "Marketplace com escrow — Medical / Drugs. Escrow MultiSig, 10 dias de proteção ao comprador.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -103,7 +101,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>

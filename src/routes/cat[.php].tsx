@@ -8,7 +8,7 @@ export const Route = createFileRoute("/cat.php")({
       { title: "Medical / Drugs | Black Market 2026" },
       {
         name: "description",
-        content: "Medical / Drugs — listings com escrow MultiSig e entrega expressa.",
+        content: "Medical / Drugs — anúncios com escrow MultiSig e entrega expressa.",
       },
     ],
   }),
@@ -38,9 +38,9 @@ function Categoria() {
         <section className="features-card">
           <div className="features-grid">
             <div className="feature-item">
-              <h3 className="feature-title">Category not available</h3>
+              <h3 className="feature-title">Categoria não disponível</h3>
               <p className="feature-description">
-                Este mirror traz somente a secao Medical / Drugs.
+                Este mirror traz somente a seção Medical / Drugs.
               </p>
               <Link to="/cat.php" search={{ cat: "drugs" }} className="details-button2">
                 Ver Medical / Drugs
@@ -71,16 +71,16 @@ function Categoria() {
               <br />
               <br />
               <h3 className="feature-title">
-                Sale: Up to{" "}
+                Oferta: até{" "}
                 <span style={{ color: "#e74c3c", fontWeight: "bold", fontSize: "1.1em" }}>20%</span>{" "}
-                Off
+                de desconto
               </h3>
               <Link to="/cat.php" search={{ cat: "drugs" }} className="details-button2">
-                View All Products
+                Ver todos os produtos
               </Link>
             </div>
           </div>
-          <p className="footnote">*Available until 30/9/2026</p>
+          <p className="footnote">*Disponível até 30/9/2026</p>
         </section>
       </div>
 

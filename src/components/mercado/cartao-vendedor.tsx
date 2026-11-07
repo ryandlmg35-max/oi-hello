@@ -36,16 +36,16 @@ export function CartaoVendedor({ vendedor, destaque = false }: Props) {
         {vendedor.ativo ? (
           <div className="vendor-active-badge">
             <span className="active-dot" />
-            Vendor Active
+            Vendedor ativo
           </div>
         ) : null}
         {vendedor.vendas > 0 ? (
           <div className="vendor-orders-count">
-            {vendedor.vendas.toLocaleString("en-US")} orders completed
+            {vendedor.vendas.toLocaleString("pt-BR")} pedidos concluídos
           </div>
         ) : null}
         <Link to={para} className="details-button2">
-          DETAILS
+          DETALHES
         </Link>
       </div>
     </div>

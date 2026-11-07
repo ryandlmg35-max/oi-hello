@@ -4,12 +4,12 @@ import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { useAuth } from "@/features/auth/auth-context";
 import { atualizarMeuPerfil, buscarMeuPerfil, listarMeusPedidos } from "@/features/pedidos/pedidos";
-import { formatarDataHora, formatarUsd, statusDoPedido } from "@/lib/mercado";
+import { formatarDataHora, formatarBrl, statusDoPedido } from "@/lib/mercado";
 
 export const Route = createFileRoute("/account.php")({
   head: () => ({
     meta: [
-      { title: "My Orders | Black Market 2026" },
+      { title: "Meus Pedidos | Black Market 2026" },
       { name: "description", content: "Pedidos da sua conta e status do escrow." },
     ],
   }),
@@ -37,8 +37,8 @@ function PaginaConta() {
     return (
       <main className="checkout-page">
         <div className="checkout-card">
-          <h1 className="checkout-heading">My Orders</h1>
-          <p className="info-text">Checking session...</p>
+          <h1 className="checkout-heading">Meus Pedidos</h1>
+          <p className="info-text">Verificando sessão...</p>
         </div>
       </main>
     );
@@ -48,11 +48,11 @@ function PaginaConta() {
     return (
       <main className="checkout-page">
         <div className="checkout-card cart-empty">
-          <h1 className="checkout-heading">My Orders</h1>
-          <img src="/pic/logo.png" width={180} alt="Account" />
-          <p className="info-text">Login to see your orders and escrow status.</p>
+          <h1 className="checkout-heading">Meus Pedidos</h1>
+          <img src="/pic/logo.png" width={180} alt="Conta" />
+          <p className="info-text">Entre para ver seus pedidos e o status do escrow.</p>
           <Link to="/login.php" search={{ redirect: "/account.php" }} className="btn-rating">
-            LOGIN
+            ENTRAR
           </Link>
         </div>
       </main>
@@ -69,14 +69,14 @@ function PaginaConta() {
       toast.error(resultado.mensagem);
       return;
     }
-    toast.success("Profile updated");
+    toast.success("Perfil atualizado");
     await perfil.refetch();
   }
 
   return (
     <main className="checkout-page">
       <div className="checkout-card">
-        <h1 className="checkout-heading">My Orders</h1>
+        <h1 className="checkout-heading">Meus Pedidos</h1>
 
         <table className="summary-table">
           <tbody>
@@ -90,7 +90,7 @@ function PaginaConta() {
             </tr>
             <tr>
               <td>
-                <div className="summarydescription">Member since</div>
+                <div className="summarydescription">Membro desde</div>
               </td>
               <td>
                 <div className="summarydescription2">{formatarDataHora(user.created_at)}</div>
@@ -100,7 +100,7 @@ function PaginaConta() {
         </table>
 
         <form className="form-group" onSubmit={salvarPerfil}>
-          <label htmlFor="nome">Display name</label>
+          <label htmlFor="nome">Nome de exibição</label>
           <input
             id="nome"
             value={nome ?? perfil.data?.nome ?? ""}
@@ -109,19 +109,19 @@ function PaginaConta() {
           />
           <div className="form-actions">
             <button type="submit" className="btn-rating" disabled={salvando}>
-              {salvando ? "SAVING..." : "SAVE"}
+              {salvando ? "SALVANDO..." : "SALVAR"}
             </button>
             <button type="button" className="btn-outline" onClick={() => void signOut()}>
-              LOGOUT
+              SAIR
             </button>
           </div>
         </form>
 
         <hr id="grad1" />
 
-        {pedidos.isLoading ? <p className="info-text">Loading orders...</p> : null}
+        {pedidos.isLoading ? <p className="info-text">Carregando pedidos...</p> : null}
 
-        {pedidos.data?.length === 0 ? <p className="info-text">No orders yet.</p> : null}
+        {pedidos.data?.length === 0 ? <p className="info-text">Nenhum pedido ainda.</p> : null}
 
         {pedidos.data?.map((pedido) => {
           const status = statusDoPedido(pedido.status);
@@ -129,7 +129,7 @@ function PaginaConta() {
             <div key={pedido.id} className="cart-item" style={{ display: "block" }}>
               <div className="cart-info">
                 <div className="cart-vendor">{pedido.id.slice(0, 8)}</div>
-                <div className="cart-name">{formatarUsd(Number(pedido.valor_total))}</div>
+                <div className="cart-name">{formatarBrl(Number(pedido.valor_total))}</div>
                 <div className="cart-meta">
                   <span className="altext">
                     <img src="/pic/verified.png" alt="verificado" /> {status.rotulo}
@@ -145,12 +145,12 @@ function PaginaConta() {
                           <div className="vendor-label">{item.vendedor ?? ""}</div>
                           <div className="summarydescription">{item.produto_nome ?? ""}</div>
                           <div className="summarydescription2">
-                            {item.variante ?? ""} · Qty {item.quantidade}
+                            {item.variante ?? ""} · Qtd {item.quantidade}
                           </div>
                         </td>
                         <td>
                           <div className="summarydescription">
-                            {formatarUsd(Number(item.preco_unitario) * item.quantidade)}
+                            {formatarBrl(Number(item.preco_unitario) * item.quantidade)}
                           </div>
                         </td>
                       </tr>
@@ -158,7 +158,7 @@ function PaginaConta() {
                   </tbody>
                 </table>
                 <div className="secret-box" style={{ marginTop: "10px" }}>
-                  <div className="key-label">Secret key</div>
+                  <div className="key-label">Chave secreta</div>
                   <div className="key-value">{pedido.chave_secreta ?? "—"}</div>
                 </div>
               </div>

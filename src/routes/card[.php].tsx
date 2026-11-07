@@ -1,14 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCarrinho } from "@/features/carrinho/carrinho-context";
-import { formatarCrypto, formatarUsd } from "@/lib/mercado";
+import { formatarBrl, formatarCrypto } from "@/lib/mercado";
 
 export const Route = createFileRoute("/card.php")({
   head: () => ({
     meta: [
-      { title: "Cart | Black Market 2026" },
+      { title: "Carrinho | Black Market 2026" },
       {
         name: "description",
-        content: "Your shopping cart — review items and proceed to escrow-protected checkout.",
+        content: "Seu carrinho — revise os itens e siga para o checkout protegido por escrow.",
       },
     ],
   }),
@@ -22,11 +22,11 @@ function PaginaCarrinho() {
     return (
       <main className="checkout-page">
         <div className="checkout-card cart-empty">
-          <h1 className="checkout-heading">Your Cart</h1>
-          <img src="/pic/logo.png" width={180} alt="Cart" />
-          <p className="info-text">Your cart is empty.</p>
+          <h1 className="checkout-heading">Seu carrinho</h1>
+          <img src="/pic/logo.png" width={180} alt="Carrinho" />
+          <p className="info-text">Seu carrinho está vazio.</p>
           <Link to="/cat.php" search={{ cat: "drugs" }} className="btn-rating">
-            Continue Shopping
+            Continuar comprando
           </Link>
         </div>
       </main>
@@ -36,9 +36,9 @@ function PaginaCarrinho() {
   return (
     <main className="checkout-page">
       <div className="checkout-card">
-        <h1 className="checkout-heading">Your Cart</h1>
+        <h1 className="checkout-heading">Seu carrinho</h1>
         <p className="info-text">
-          {totalItens} item{totalItens === 1 ? "" : "s"} — escrow protected until delivery.
+          {totalItens} {totalItens === 1 ? "item" : "itens"} — protegido por escrow até a entrega.
         </p>
 
         {itens.map((item) => (
@@ -58,11 +58,11 @@ function PaginaCarrinho() {
 
             <div className="cart-side">
               <div className="cart-price">
-                <span className="price-new">{formatarUsd(item.preco * item.quantidade)}</span>
+                <span className="price-new">{formatarBrl(item.preco * item.quantidade)}</span>
               </div>
 
               <label className="cart-qty">
-                Qty
+                Qtd
                 <input
                   type="number"
                   min={1}
@@ -75,7 +75,7 @@ function PaginaCarrinho() {
               </label>
 
               <button type="button" className="btn-rating" onClick={() => remover(item.varianteId)}>
-                Remove
+                Remover
               </button>
             </div>
           </div>
@@ -84,24 +84,25 @@ function PaginaCarrinho() {
         <hr id="grad1" />
 
         <div className="checkout-total">
-          <div className="amount-usd">{formatarUsd(subtotal)}</div>
+          <div className="amount-usd">{formatarBrl(subtotal)}</div>
           <div className="amount-crypto">{formatarCrypto(subtotal, "BTC")}</div>
           <span className="escrow-badge">
-            <img src="/pic/verified.png" alt="verificado" /> Escrow protected
+            <img src="/pic/verified.png" alt="verificado" /> Protegido por escrow
           </span>
         </div>
 
         <div className="cart-actions">
           <Link to="/cat.php" search={{ cat: "drugs" }} className="btn-rating">
-            Continue Shopping
+            Continuar comprando
           </Link>
           <Link to="/checkout.php" className="btn-buy2">
-            CHECKOUT
+            FINALIZAR
           </Link>
         </div>
 
         <p className="cart-hint">
-          Funds are locked in MultiSig escrow and released after you confirm delivery.
+          O valor fica travado no escrow MultiSig e é liberado só depois que você confirma a
+          entrega.
         </p>
       </div>
     </main>

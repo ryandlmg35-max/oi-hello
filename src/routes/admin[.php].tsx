@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { mercadoSupabase as supabase } from "@/data/mercado/client";
 import { useAuth } from "@/features/auth/auth-context";
-import { formatarUsd } from "@/lib/mercado";
+import { formatarBrl } from "@/lib/mercado";
 
 type LinhaProduto = {
   id: string;
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/admin.php")({
   head: () => ({
     meta: [
       { title: "Admin | Black Market 2026" },
-      { name: "description", content: "Gestao de listings e variantes (admin)." },
+      { name: "description", content: "Gestão de anúncios e variantes (admin)." },
     ],
   }),
   component: PaginaAdmin,
@@ -79,7 +79,7 @@ function PaginaAdmin() {
       if (error) throw new Error(error.message);
     },
     onSuccess: async () => {
-      toast.success("Listing updated");
+      toast.success("Anúncio atualizado");
       await queryClient.invalidateQueries({ queryKey: ["admin"] });
     },
     onError: (erro: Error) => toast.error(erro.message),
@@ -94,7 +94,7 @@ function PaginaAdmin() {
       if (error) throw new Error(error.message);
     },
     onSuccess: async () => {
-      toast.success("Variant updated");
+      toast.success("Variante atualizada");
       await queryClient.invalidateQueries({ queryKey: ["admin"] });
     },
     onError: (erro: Error) => toast.error(erro.message),
@@ -106,7 +106,7 @@ function PaginaAdmin() {
       if (error) throw new Error(error.message);
     },
     onSuccess: async () => {
-      toast.success("Listing removed");
+      toast.success("Anúncio removido");
       await queryClient.invalidateQueries({ queryKey: ["admin"] });
     },
     onError: (erro: Error) => toast.error(erro.message),
@@ -117,7 +117,7 @@ function PaginaAdmin() {
       <main className="checkout-page">
         <div className="checkout-card">
           <h1 className="checkout-heading">Admin</h1>
-          <p className="info-text">Checking session...</p>
+          <p className="info-text">Verificando sessão...</p>
         </div>
       </main>
     );
@@ -129,7 +129,7 @@ function PaginaAdmin() {
         <div className="checkout-card">
           <h1 className="checkout-heading">Admin</h1>
           <p className="info-text">
-            Esta area exige uma conta com papel <strong>admin</strong> no projeto Supabase.
+            Esta área exige uma conta com papel <strong>admin</strong> no projeto Supabase.
           </p>
           <pre
             style={{
@@ -148,10 +148,10 @@ on conflict (user_id, role) do nothing;`}
           </pre>
           <div className="cart-actions">
             <Link to="/login.php" search={{ redirect: "/admin.php" }} className="btn-rating">
-              LOGIN
+              ENTRAR
             </Link>
             <Link to="/" className="btn-outline">
-              Back to Vendors
+              Voltar aos vendedores
             </Link>
           </div>
         </div>
@@ -162,16 +162,16 @@ on conflict (user_id, role) do nothing;`}
   return (
     <main className="checkout-page">
       <div className="checkout-card">
-        <h1 className="checkout-heading">Admin — Listings</h1>
+        <h1 className="checkout-heading">Admin — Anúncios</h1>
         <p className="info-text">
           {user.email} · papel admin confirmado por <code>user_roles</code>
         </p>
 
-        {produtos.isLoading ? <p className="info-text">Loading listings...</p> : null}
+        {produtos.isLoading ? <p className="info-text">Carregando anúncios...</p> : null}
 
         {produtos.data?.length === 0 ? (
           <p className="info-text">
-            Nenhum listing sincronizado. Aplique a migration <code>0001_migration.sql</code> no
+            Nenhum anúncio sincronizado. Aplique a migration <code>0001_migration.sql</code> no
             Supabase do projeto.
           </p>
         ) : null}
@@ -183,7 +183,7 @@ on conflict (user_id, role) do nothing;`}
               <div className="cart-name">{linha.nome}</div>
               <div className="cart-meta">
                 <span className="cart-country">
-                  preco:{" "}
+                  preço:{" "}
                   <input
                     type="number"
                     step="0.01"
@@ -211,14 +211,14 @@ on conflict (user_id, role) do nothing;`}
                 className="btn-rating"
                 onClick={() => salvarProduto.mutate(linha)}
               >
-                SAVE
+                SALVAR
               </button>
               <button
                 type="button"
                 className="btn-outline"
                 onClick={() => removerProduto.mutate(linha.id)}
               >
-                DELETE
+                EXCLUIR
               </button>
             </div>
           </div>
@@ -227,7 +227,7 @@ on conflict (user_id, role) do nothing;`}
         <hr id="grad1" />
 
         <h2 className="checkout-heading" style={{ fontSize: "1.2rem" }}>
-          Variants
+          Variantes
         </h2>
 
         {variantes.data?.map((linha) => (
@@ -236,7 +236,7 @@ on conflict (user_id, role) do nothing;`}
               <div className="cart-name">{linha.variante}</div>
               <div className="cart-meta">
                 <span className="cart-country">
-                  {formatarUsd(Number(linha.preco))} ·{" "}
+                  {formatarBrl(Number(linha.preco))} ·{" "}
                   <input
                     type="number"
                     step="0.01"
@@ -256,7 +256,7 @@ on conflict (user_id, role) do nothing;`}
                 className="btn-rating"
                 onClick={() => salvarVariante.mutate(linha)}
               >
-                SAVE
+                SALVAR
               </button>
             </div>
           </div>

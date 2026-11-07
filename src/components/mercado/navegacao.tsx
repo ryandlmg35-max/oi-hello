@@ -26,7 +26,7 @@ export function Navegacao() {
         <ul>
           <li>
             <Link to="/" activeProps={{ className: "active" }}>
-              Vendors
+              Vendedores
             </Link>
           </li>
           <li>
@@ -39,7 +39,7 @@ export function Navegacao() {
             </Link>
           </li>
           <li className="dropdown">
-            <a href="#">Category</a>
+            <a href="#">Categorias</a>
             <ul className="dropdown-content">
               <li>
                 <Link to="/cat.php" search={{ cat: "drugs" }}>
@@ -50,7 +50,7 @@ export function Navegacao() {
           </li>
           <li>
             <Link to="/status.php" activeProps={{ className: "active" }}>
-              Order Status
+              Status do Pedido
             </Link>
           </li>
           <li>
@@ -60,14 +60,14 @@ export function Navegacao() {
           </li>
           <li>
             <Link to="/card.php" activeProps={{ className: "active" }}>
-              [{totalItens}] Card
+              [{totalItens}] Carrinho
             </Link>
           </li>
           <li>
             {user ? (
               <>
                 <Link to="/account.php" activeProps={{ className: "active" }}>
-                  Account
+                  Conta
                 </Link>
               </>
             ) : (
@@ -76,7 +76,7 @@ export function Navegacao() {
                 search={{ redirect: "/account.php" }}
                 activeProps={{ className: "active" }}
               >
-                Login
+                Entrar
               </Link>
             )}
           </li>
