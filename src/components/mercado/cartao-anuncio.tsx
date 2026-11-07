@@ -12,21 +12,28 @@ type Props = {
  * O link leva para a pagina do produto com a variante ja selecionada.
  */
 export function CartaoAnuncio({ produto, variante }: Props) {
-  const para = `/product.php?vendor=${encodeURIComponent(produto.vendor)}&product=${encodeURIComponent(
-    produto.produto,
-  )}&variante=${encodeURIComponent(variante.id)}`;
+  // `to` + `search` (e nao query dentro do `to`): o router trata a query do
+  // `to` como parte do pathname e a navegacao entre anuncios quebra.
+  const destino = {
+    to: "/product.php",
+    search: {
+      vendor: produto.vendor,
+      product: produto.produto,
+      variante: variante.id,
+    },
+  } as const;
 
   return (
     <div className="product-card2">
       <div className="card-header2">
-        <Link to={para}>
+        <Link {...destino}>
           <img
             src={`/${variante.img || produto.imgPrincipal}`}
             alt={produto.titulo}
             className="cardimg"
           />
         </Link>
-        <Link to={para}>
+        <Link {...destino}>
           <div className="floating-card-image">
             {produto.titulo}
             <br />
@@ -44,7 +51,7 @@ export function CartaoAnuncio({ produto, variante }: Props) {
             </center>
           </div>
         </p>
-        <Link to={para} className="details-button2">
+        <Link {...destino} className="details-button2">
           DETALHES
         </Link>
       </div>

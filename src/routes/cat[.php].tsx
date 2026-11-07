@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { carregarCatalogo } from "@/data/mercado/servidor";
 import { CartaoAnuncio } from "@/components/mercado/cartao-anuncio";
+import { paramTexto } from "@/lib/mercado";
 
 export const Route = createFileRoute("/cat.php")({
   head: () => ({
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/cat.php")({
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
-    cat: typeof search["cat"] === "string" ? search["cat"] : "drugs",
+    cat: paramTexto(search["cat"]) || "drugs",
   }),
   loader: async () => {
     const catalogo = await carregarCatalogo();

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { carregarCatalogo } from "@/data/mercado/servidor";
 import { CartaoAnuncio } from "@/components/mercado/cartao-anuncio";
 import { FaixaVendedor } from "@/components/mercado/faixa-vendedor";
+import { paramTexto } from "@/lib/mercado";
 
 const slug = (valor: string) =>
   valor
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/vendor.php")({
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
-    vendor: typeof search["vendor"] === "string" ? search["vendor"] : "",
+    vendor: paramTexto(search["vendor"]),
   }),
   loader: async () => {
     const catalogo = await carregarCatalogo();
@@ -55,9 +56,10 @@ function PaginaVendedor() {
     <div className="maincontainer">
       <FaixaVendedor
         vendedor={vendedor}
-        reviewsHref={`/product.php?vendor=${encodeURIComponent(vendedor.nome)}&product=${encodeURIComponent(
-          catalogo.produtos.find((p) => p.vendorSlug === vendedor.slug)?.produto ?? "1",
-        )}#comments`}
+        reviews={{
+          vendor: vendedor.nome,
+          product: catalogo.produtos.find((p) => p.vendorSlug === vendedor.slug)?.produto ?? "1",
+        }}
       />
       <br />
 

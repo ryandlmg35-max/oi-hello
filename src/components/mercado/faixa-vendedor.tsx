@@ -4,14 +4,14 @@ import type { Vendedor } from "@/data/mercado/servidor";
 type Props = {
   vendedor: Vendedor | null;
   /** Link do bloco "REVIEWS" (pagina do produto). */
-  reviewsHref?: string;
+  reviews?: { vendor: string; product: string };
 };
 
 /**
  * Faixa de tres blocos (escrow / vendedor / envio) usada nas paginas de
  * produto e de vendedor do site original.
  */
-export function FaixaVendedor({ vendedor, reviewsHref }: Props) {
+export function FaixaVendedor({ vendedor, reviews }: Props) {
   return (
     <section className="features-card">
       <br />
@@ -33,10 +33,15 @@ export function FaixaVendedor({ vendedor, reviewsHref }: Props) {
                 <img src="/pic/5star.png" width={100} alt="5 estrelas" />
                 <br />
               </p>
-              {reviewsHref ? (
-                <a href={reviewsHref} className="btn-rating">
+              {reviews ? (
+                <Link
+                  to="/product.php"
+                  search={{ vendor: reviews.vendor, product: reviews.product, variante: "" }}
+                  hash="comments"
+                  className="btn-rating"
+                >
                   AVALIAÇÕES
-                </a>
+                </Link>
               ) : null}
             </>
           ) : (

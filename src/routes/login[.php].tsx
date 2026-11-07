@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/features/auth/auth-context";
+import { paramTexto } from "@/lib/mercado";
 
 export const Route = createFileRoute("/login.php")({
   head: () => ({
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/login.php")({
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
-    redirect: typeof search["redirect"] === "string" ? search["redirect"] : "/account.php",
+    redirect: paramTexto(search["redirect"]) || "/account.php",
   }),
   component: PaginaLogin,
 });

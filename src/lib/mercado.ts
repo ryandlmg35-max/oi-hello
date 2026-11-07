@@ -140,3 +140,17 @@ export function formatarDataHora(iso: string | null | undefined): string {
     minute: "2-digit",
   }).format(data);
 }
+
+/**
+ * Le um parametro de URL como texto.
+ *
+ * O TanStack Router parseia a query string como JSON: `?product=2` vira
+ * numero 2, nao string "2". Um validateSearch que so aceita string apaga o
+ * parametro e a pagina cai no fallback (o site voltava a mostrar o produto
+ * anterior). Aqui tudo vira texto, com seguranca.
+ */
+export function paramTexto(valor: unknown): string {
+  if (typeof valor === "string") return valor;
+  if (typeof valor === "number" && Number.isFinite(valor)) return String(valor);
+  return "";
+}

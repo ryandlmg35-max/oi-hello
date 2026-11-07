@@ -1,9 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { carregarCatalogo } from "@/data/mercado/servidor";
 import { FaixaVendedor } from "@/components/mercado/faixa-vendedor";
 import { useCarrinho } from "@/features/carrinho/carrinho-context";
+import { paramTexto } from "@/lib/mercado";
 
 const slug = (valor: string) =>
   valor
@@ -32,9 +33,9 @@ export const Route = createFileRoute("/product.php")({
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
-    vendor: typeof search["vendor"] === "string" ? search["vendor"] : "",
-    product: typeof search["product"] === "string" ? search["product"] : "",
-    variante: typeof search["variante"] === "string" ? search["variante"] : "",
+    vendor: paramTexto(search["vendor"]),
+    product: paramTexto(search["product"]),
+    variante: paramTexto(search["variante"]),
   }),
   loader: async ({ params }) => {
     const catalogo = await carregarCatalogo();
@@ -54,16 +55,19 @@ function PaginaProduto() {
   );
 
   const produto = useMemo(() => {
-    const alvo = catalogo.produtos.find((p) => p.vendorSlug === slug(vendor));
-    if (!alvo) return null;
-    return (
-      catalogo.produtos.find((p) => p.vendorSlug === slug(vendor) && p.produto === product) ?? alvo
-    );
+    const doVendedor = catalogo.produtos.filter((p) => p.vendorSlug === slug(vendor));
+    if (doVendedor.length === 0) return null;
+    return doVendedor.find((p) => p.produto === product || p.id === product) ?? doVendedor[0];
   }, [catalogo.produtos, vendor, product]);
 
-  const [selecionada, setSelecionada] = useState<string>(
-    varianteUrl || produto?.variantes[0]?.id || "",
-  );
+  const variantePadrao = varianteUrl || produto?.variantes[0]?.id || "";
+  const [selecionada, setSelecionada] = useState<string>(variantePadrao);
+
+  // Ao trocar de produto (link de outro anuncio), a variante tem que resetar:
+  // senao o select fica apontando para a variante do produto anterior.
+  useEffect(() => {
+    setSelecionada(variantePadrao);
+  }, [variantePadrao]);
 
   if (!produto) throw notFound();
 
@@ -96,9 +100,7 @@ function PaginaProduto() {
     <div className="maincontainer">
       <FaixaVendedor
         vendedor={vendedor}
-        reviewsHref={`/product.php?vendor=${encodeURIComponent(produto.vendor)}&product=${encodeURIComponent(
-          produto.produto,
-        )}#comments`}
+        reviews={{ vendor: produto.vendor, product: produto.produto }}
       />
 
       <section className="product4-card">
