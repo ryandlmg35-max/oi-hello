@@ -25,6 +25,17 @@ export const ROTULO_MOEDA: Record<MoedaPagamento, string> = {
   SOL: "Solana (SOL)",
 };
 
+/** Formas de pagamento do site: 3 criptos + PIX (a parte, risco do comprador). */
+export type FormaPagamento = MoedaPagamento | "PIX";
+
+export const ROTULO_FORMA: Record<FormaPagamento, string> = {
+  ...ROTULO_MOEDA,
+  PIX: "PIX (QR Code)",
+};
+
+/** Chave PIX fixa de recebimento do site. */
+export const CHAVE_PIX = "71578786150";
+
 const formatoBrl = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
@@ -41,9 +52,44 @@ export function formatarCrypto(valorUsd: number, moeda: MoedaPagamento): string 
   return `≈ ${quantidade.toFixed(6)} ${moeda}`;
 }
 
-/** Carteira de custodia da moeda: endereco do proprio site, fixo. */
-export function enderecoEscrow(moeda: MoedaPagamento): string {
-  return CARTEIRAS[moeda] ?? CARTEIRAS.BTC;
+/** Endereco/chave de custodia da forma escolhida (fixo do site). */
+export function enderecoEscrow(moeda: FormaPagamento): string {
+  return moeda === "PIX" ? CHAVE_PIX : (CARTEIRAS[moeda] ?? CARTEIRAS.BTC);
+}
+
+const pixCampo = (id: string, valor: string) =>
+  id + valor.length.toFixed(0).padStart(2, "0") + valor;
+
+function crc16Pix(texto: string): number {
+  let crc = 0xffff;
+  for (let i = 0; i < texto.length; i += 1) {
+    crc ^= texto.charCodeAt(i) << 8;
+    for (let bit = 0; bit < 8; bit += 1) {
+      crc = crc & 0x8000 ? ((crc << 1) ^ 0x1021) & 0xffff : (crc << 1) & 0xffff;
+    }
+  }
+  return crc;
+}
+
+/**
+ * Payload EMV "copia e cola" do BR Code estatico da chave PIX do site, com
+ * o valor do pedido em reais embutido (tag 54) e CRC16-CCITT (tag 63).
+ */
+export function pixPayloadCopiaCola(valorUsd: number): string {
+  const chavePix = pixCampo("00", "br.gov.bcb.pix") + pixCampo("00", CHAVE_PIX);
+  const partes = [
+    pixCampo("00", "01"),
+    pixCampo("26", chavePix),
+    pixCampo("52", "0000"),
+    pixCampo("53", "986"),
+    pixCampo("54", (valorUsd * TAXA_BRL).toFixed(2)),
+    pixCampo("58", "BR"),
+    pixCampo("59", "BLACK MARKET"),
+    pixCampo("60", "SAO PAULO"),
+    pixCampo("62", pixCampo("05", "***")),
+  ];
+  const semCrc = `${partes.join("")}6304`;
+  return `${semCrc}${crc16Pix(semCrc).toString(16).toUpperCase().padStart(4, "0")}`;
 }
 
 export const STATUS_PEDIDO: Record<string, { rotulo: string; classe: string }> = {

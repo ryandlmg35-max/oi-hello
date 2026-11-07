@@ -18,7 +18,7 @@ export function PromoEscrow() {
         <div className="escrow-promo-chips">
           <span className="escrow-chip">Custódia MultiSig</span>
           <span className="escrow-chip">Custódia de 10 dias</span>
-          <span className="escrow-chip">BTC, ETH e SOL</span>
+          <span className="escrow-chip">BTC, ETH, SOL ou PIX</span>
         </div>
         <Link to="/escrow-overview.php" className="details-button2">
           DETALHES

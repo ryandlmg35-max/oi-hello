@@ -106,11 +106,15 @@ function PaginaStatus() {
             <div className={`status-box ${statusDoPedido(pedido.status).classe}`}>
               <div className="status-label">{statusDoPedido(pedido.status).rotulo}</div>
               <div className="status-value">
-                {formatarBrl(Number(pedido.valor_total))} ·{" "}
-                {formatarCrypto(
-                  Number(pedido.valor_total),
-                  (pedido.moeda as "BTC" | "ETH" | "SOL") ?? "BTC",
-                )}
+                {formatarBrl(Number(pedido.valor_total))}
+                {pedido.moeda === "PIX"
+                  ? " · pago via PIX"
+                  : ["BTC", "ETH", "SOL"].includes(pedido.moeda ?? "")
+                    ? ` · ${formatarCrypto(
+                        Number(pedido.valor_total),
+                        pedido.moeda as "BTC" | "ETH" | "SOL",
+                      )}`
+                    : null}
               </div>
             </div>
 

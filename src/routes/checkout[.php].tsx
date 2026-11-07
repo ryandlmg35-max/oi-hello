@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { QRCodeSVG } from "qrcode.react";
 import { useAuth } from "@/features/auth/auth-context";
 import { useCarrinho } from "@/features/carrinho/carrinho-context";
 import { criarPedido } from "@/features/pedidos/pedidos";
@@ -9,7 +10,9 @@ import {
   enderecoEscrow,
   formatarBrl,
   formatarCrypto,
-  ROTULO_MOEDA,
+  pixPayloadCopiaCola,
+  ROTULO_FORMA,
+  type FormaPagamento,
   type MoedaPagamento,
 } from "@/lib/mercado";
 
@@ -23,7 +26,7 @@ const esquema = z.object({
   cidade: z.string().min(2, "Informe a cidade"),
   pais: z.string().min(2, "Informe o pais"),
   cep: z.string().min(4, "CEP invalido"),
-  pagamento: z.enum(["BTC", "ETH", "SOL"]),
+  pagamento: z.enum(["BTC", "ETH", "SOL", "PIX"]),
   observacoes: z.string().optional(),
 });
 
@@ -58,7 +61,7 @@ function PaginaCheckout() {
     cidade: "",
     pais: "Brasil",
     cep: "",
-    pagamento: "BTC" as MoedaPagamento,
+    pagamento: "BTC" as FormaPagamento,
     observacoes: "",
   });
 
@@ -96,7 +99,9 @@ function PaginaCheckout() {
   }
 
   if (pedido) {
+    const ePix = form.pagamento === "PIX";
     const endereco = enderecoEscrow(form.pagamento);
+    const codigoPix = ePix ? pixPayloadCopiaCola(subtotal) : "";
     return (
       <main className="checkout-page">
         <div className="checkout-card">
@@ -105,18 +110,70 @@ function PaginaCheckout() {
           <div className="status-box awaiting">
             <div className="status-label">Aguardando pagamento</div>
             <div className="status-value">
-              {formatarBrl(subtotal)} — {formatarCrypto(subtotal, form.pagamento)}
+              {ePix
+                ? formatarBrl(subtotal)
+                : `${formatarBrl(subtotal)} — ${formatarCrypto(subtotal, form.pagamento as MoedaPagamento)}`}
             </div>
           </div>
 
-          <div className="wallet-box">
-            <div className="key-label">Endereço de custódia ({form.pagamento})</div>
-            <div className="key-value">{endereco}</div>
-            <p className="info-text">
-              Envie o valor exato para o endereço. O pedido confirma automaticamente após 2
-              confirmações de rede.
-            </p>
-          </div>
+          {ePix ? (
+            <div className="wallet-box">
+              <div className="key-label">PIX — pague lendo o QR Code no app do banco</div>
+              <div style={{ textAlign: "center", padding: "12px 0" }}>
+                <QRCodeSVG
+                  value={codigoPix}
+                  size={190}
+                  bgColor="#0d0d0d"
+                  fgColor="#ffffff"
+                  level="M"
+                />
+                <div className="key-value" style={{ marginTop: "10px" }}>
+                  {formatarBrl(subtotal)}
+                </div>
+              </div>
+              <div className="key-label">Copia e cola (código EMV)</div>
+              <div className="key-value" style={{ wordBreak: "break-all" }}>
+                {codigoPix}
+              </div>
+              <div className="cart-actions">
+                <button
+                  type="button"
+                  className="btn-outline"
+                  onClick={() => {
+                    void navigator.clipboard?.writeText(codigoPix);
+                    toast.success("Código PIX copiado");
+                  }}
+                >
+                  COPIAR CÓDIGO PIX
+                </button>
+              </div>
+              <p className="info-text">
+                Pague o valor exato. Depois de pagar, mande o comprovante no suporte{" "}
+                <a href="https://t.me/yuminnk" target="_blank" rel="noreferrer">
+                  t.me/yuminnk
+                </a>{" "}
+                para confirmarmos e postar seu pedido.
+              </p>
+            </div>
+          ) : (
+            <div className="wallet-box">
+              <div className="key-label">Endereço de custódia ({form.pagamento})</div>
+              <div className="key-value">{endereco}</div>
+              <p className="info-text">
+                Envie o valor exato para o endereço. O pedido confirma automaticamente após 2
+                confirmações de rede.
+              </p>
+            </div>
+          )}
+
+          {ePix ? (
+            <div className="notice-box">
+              PIX é menos anônimo que cripto: a transferência sai registrada com seus dados
+              bancários e não passa pela custódia automática — quem paga por PIX assume o risco. A
+              confirmação é manual, pelo suporte, e o reembolso automático de 10 dias se aplica só a
+              pedidos pagos com cripto.
+            </div>
+          ) : null}
 
           <div className="secret-box">
             <div className="key-label">Chave secreta (use no Status do Pedido)</div>
@@ -224,7 +281,11 @@ function PaginaCheckout() {
 
     setPedido({ id: resultado.id, chave: resultado.chave ?? "" });
     limpar();
-    toast.success("Pedido criado — endereço de custódia gerado");
+    toast.success(
+      form.pagamento === "PIX"
+        ? "Pedido criado — pague via PIX no QR gerado"
+        : "Pedido criado — endereço de custódia gerado",
+    );
   }
 
   return (
@@ -345,13 +406,22 @@ function PaginaCheckout() {
             id="pagamento"
             name="pagamento"
             value={form.pagamento}
-            onChange={(e) => setForm({ ...form, pagamento: e.target.value as MoedaPagamento })}
+            onChange={(e) => setForm({ ...form, pagamento: e.target.value as FormaPagamento })}
           >
-            <option value="BTC">{ROTULO_MOEDA.BTC}</option>
-            <option value="ETH">{ROTULO_MOEDA.ETH}</option>
-            <option value="SOL">{ROTULO_MOEDA.SOL}</option>
+            <option value="BTC">{ROTULO_FORMA.BTC}</option>
+            <option value="ETH">{ROTULO_FORMA.ETH}</option>
+            <option value="SOL">{ROTULO_FORMA.SOL}</option>
+            <option value="PIX">{ROTULO_FORMA.PIX}</option>
           </select>
         </div>
+
+        {form.pagamento === "PIX" ? (
+          <div className="notice-box">
+            Atenção: o PIX é uma forma a parte, sem custódia automática — quem paga por PIX assume o
+            risco do pedido. Ele também é menos anônimo: o banco registra a transferência com os
+            seus dados. A confirmação do pagamento é manual, pelo suporte.
+          </div>
+        ) : null}
 
         <div className="form-group">
           <label htmlFor="observacoes">Observações (opcional)</label>
@@ -387,10 +457,21 @@ function PaginaCheckout() {
 
         <div className="checkout-total">
           <div className="amount-usd">{formatarBrl(subtotal)}</div>
-          <div className="amount-crypto">{formatarCrypto(subtotal, form.pagamento)}</div>
-          <span className="escrow-badge">
-            <img src="/pic/verified.png" alt="verificado" /> Custódia MultiSig — 10 dias
-          </span>
+          {form.pagamento === "PIX" ? (
+            <>
+              <div className="amount-crypto">pagamento direto via PIX</div>
+              <span className="escrow-badge">
+                <img src="/pic/verified.png" alt="aviso" /> Risco do comprador — confirmação manual
+              </span>
+            </>
+          ) : (
+            <>
+              <div className="amount-crypto">{formatarCrypto(subtotal, form.pagamento)}</div>
+              <span className="escrow-badge">
+                <img src="/pic/verified.png" alt="verificado" /> Custódia MultiSig — 10 dias
+              </span>
+            </>
+          )}
         </div>
 
         {erro ? <div className="notice-box">{erro}</div> : null}
@@ -405,8 +486,8 @@ function PaginaCheckout() {
         </div>
 
         <p className="disclaimer">
-          Clone de estudo: nenhum pagamento real é processado. O endereço de escrow é gerado a
-          partir do id do pedido.
+          Clone de estudo: nenhum pagamento real é processado. As carteiras de cripto e a chave PIX
+          são de recebimento do próprio site.
         </p>
       </form>
     </main>

@@ -71,7 +71,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Medical / Drugs direto do nosso estoque. Custódia MultiSig, 10 dias de proteção ao comprador, BTC, ETH e SOL.",
+          "Medical / Drugs direto do nosso estoque. Custódia MultiSig, 10 dias de proteção ao comprador, BTC, ETH, SOL ou PIX.",
       },
       { property: "og:title", content: "Black Market 2026 | Loja Oficial" },
       {
